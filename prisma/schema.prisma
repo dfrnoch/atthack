@@ -127,6 +127,7 @@ model Company {
   Invite                     Invite[]
   UserDetails                UserDetails[]
   CompanyWorkers             CompanyWorkerGroup[]
+  
   phishingEmailFrequencyDays Int // 0 = disabled
   lastPhishingEmailSendTime  DateTime?            @default(now())
 }
