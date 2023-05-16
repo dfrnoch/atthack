@@ -13,6 +13,6 @@ jobs:
     steps:
       - name: Hit endpoint
         run: |
-        curl -X POST -H "Authorization: Bearer m5k353ovdk5v2kv2jkb2561jb609sdf https://atthack-production.railway.app/ # TODO: Change this url
+        curl -X POST -H "Authorization: Bearer m5k353ovdk5v2kv2jkb2561jb609sdf https://atthack-production.railway.app/cron_job # TODO: Change this url
 
       # Add any other required steps for your specific task

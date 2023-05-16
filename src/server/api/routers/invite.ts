@@ -14,6 +14,27 @@ export const inviteRouter = createTRPCRouter({
     return inviteData;
   }),
 
+  listInvites: protectedProcedure
+    .query(async ({ ctx }) => {
+      return await ctx.prisma.invite.findMany({
+        where: {
+          Company: {
+            adminId: ctx.session.user.id
+          }
+        }
+      });
+    }),
+
+  removeInvite: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.invite.delete({
+        where: {
+          id: input
+        }
+      });
+    }),
+
   createInvite: protectedProcedure
     .input(
       z.object({
