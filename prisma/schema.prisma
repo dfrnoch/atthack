@@ -82,6 +82,11 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+    ADMIN
+    USER
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
@@ -90,14 +95,15 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    role          Role      @default(USER)
 
     currentCategory Category? @relation(fields: [categoryId], references: [id])
     categoryId      Int?
     currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
     exerciseId      Int?
 
-    workerGroup CompanyWorkerGroup? @relation(fields: [workerGroupId], references: [id])
-    workerGroupId   String?
+    workerGroup   CompanyWorkerGroup? @relation(fields: [workerGroupId], references: [id])
+    workerGroupId String?
 
     UserDetails UserDetails?
     Company     Company?
@@ -131,10 +137,10 @@ model CompanyWorkerGroup {
 
     workers User[]
 
-    name    String
-    color   String
+    name  String
+    color String
 
-    createdAt   DateTime  @default(now())
+    createdAt DateTime @default(now())
 }
 
 model CompanyInvite {
