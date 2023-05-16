@@ -25,7 +25,6 @@ model Category {
   name        String
   description String
   exercises   Exercise[]
-  userId      Int
   User        User[]
 }
 

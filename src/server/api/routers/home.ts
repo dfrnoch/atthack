@@ -13,12 +13,26 @@ export const homeRouter = createTRPCRouter({
     const completedRegistration = !!userDetails;
     console.log("completedRegistration", completedRegistration);
 
-    const data = await ctx.prisma.category.findMany({
+    const categories = await ctx.prisma.category.findMany({
+      select: {
+        name: true,
+        description: true,
+      },
+    });
+
+    return { completedRegistration, categories };
+  }),
+
+  categoryInfo: protectedProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+    const category = await ctx.prisma.category.findUnique({
+      where: {
+        id: input,
+      },
       include: {
         exercises: true,
       },
     });
 
-    return { completedRegistration, data };
+    return category;
   }),
 });

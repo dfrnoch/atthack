@@ -25,14 +25,13 @@ const HomePage = () => {
 
   const [activeCategory, setActiveCategory] = useState(0);
 
-  // const { error, data } = api.home.loadData.useQuery();
+  const { error, data } = api.home.loadData.useQuery();
 
-  // const categoryInfo = api.home.categoryInfo.useMutation();
+  const categoryInfo = api.home.categoryInfo.useMutation();
 
-  // useEffect(() => {
-  //   categoryInfo.mutateAsync(activeCategory);
-
-  // }, [activeCategory]);
+  useEffect(() => {
+    categoryInfo.mutateAsync(activeCategory);
+  }, [activeCategory]);
 
   return (
     <div>
@@ -48,7 +47,7 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className="col-span-4 bg-green-200">Column 2</div>
+        <div className="col-span-4 bg-green-200">{JSON.stringify(data)}</div>
         <div className="col-span-2 bg-blue-200">Column 3</div>
       </div>
     </div>

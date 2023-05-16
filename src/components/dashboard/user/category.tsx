@@ -46,7 +46,7 @@ const CategoryItem = ({ image, title, description, status }: Category) => {
   };
 
   return (
-    <Card mb={15} mt={10} withBorder radius="md" p={0} className={classes.card}>
+    <Card mb={8} mt={10} withBorder radius="md" p={0} className={classes.card}>
       <Group noWrap spacing={0}>
         <Image src={image} height={120} width={140} />
         <div className={classes.body}>
