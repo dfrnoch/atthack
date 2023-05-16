@@ -8,7 +8,7 @@ const HomePage = () => {
   const { data } = api.home.loadData.useQuery();
 
   useEffect(() => {
-    if (!data?.completedRegistration) {
+    if (data && !data.completedRegistration) {
       router.push("/domu/vitejte");
     }
   }, [data, router]);
