@@ -20,6 +20,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
             emotionCache={myCache}
             theme={{
                 colorScheme: 'dark',
+                // TODO: Change colors.
             }}
         >
             <Component {...pageProps} />

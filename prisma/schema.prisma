@@ -6,12 +6,45 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model User {
+    id        Int     @id @default(autoincrement())
+    email     String  @unique
+    password  String?
+    name      String?
+    age       Int
+    gender    Gender
+    hobbies   String
+    education String?
+
+    currentCategory Category? @relation(fields: [categoryId], references: [id])
+    categoryId      Int?
+
+    currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
+    exerciseId      Int?
+}
+
+model Category {
+    id          Int        @id @default(autoincrement())
+    name        String
+    description String
+    exercises   Exercise[]
+    userId      Int
+    User        User[]
+}
+
+model Exercise {
+    id Int @id @default(autoincrement())
+
+    Category   Category? @relation(fields: [categoryId], references: [id])
+    categoryId Int?
+    User       User[]
+}
+
+enum Gender {
+    MALE
+    FEMALE
 }
