@@ -9,12 +9,6 @@ const HomePage = () => {
 
   const { error, data } = api.home.loadData.useQuery();
 
-  useEffect(() => {
-    if (data && !data.completedRegistration) {
-      router.push("/dashboard/user/vitejte");
-    }
-  }, [data, router]);
-
   return (
     <div>
       <SideBar />
