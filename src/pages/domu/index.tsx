@@ -1,21 +1,32 @@
-import { useRouter } from "next/router";
-import SideBar from "../../components/SideBar";
-import { api } from "../../utils/api";
-import { useEffect } from "react";
+import { useRouter } from 'next/router';
+import SideBar from '../../components/SideBar';
+import { api } from '../../utils/api';
+import { useEffect } from 'react';
+import { Grid } from '@mantine/core';
 
 const HomePage = () => {
-  const router = useRouter();
-  const { data } = api.home.loadData.useQuery();
+  // const router = useRouter();
+  // const { error } = api.exercise.loadData.useQuery();
 
-  useEffect(() => {
-    if (!data?.completedRegistration) {
-      router.push("/domu/vitejte");
-    }
-  }, [data, router]);
+  // useEffect(() => {
+  //   if (error) {
+  //     router.push("/domu/vitejte");
+  //   }
+  // }, [error, router]);
 
   return (
     <div>
-      <SideBar />
+      <SideBar/>
+
+      <Grid>
+        <Grid.Col span={4}> 
+        sfdljk
+        </Grid.Col>
+
+        <Grid.Col span={8}>
+          sfdjlkfdsjlk
+        </Grid.Col>
+      </Grid>
     </div>
   );
 };

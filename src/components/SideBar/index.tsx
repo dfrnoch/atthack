@@ -1,4 +1,4 @@
-import { createStyles, Navbar, TextInput, Text, Group, ActionIcon, Tooltip, rem } from "@mantine/core";
+import { createStyles, Navbar, TextInput, Text, Group, ActionIcon, Tooltip, rem, ScrollArea } from "@mantine/core";
 import { FaPlus, FaSearch } from "react-icons/fa";
 import SideBarCategory from './category';
 
@@ -58,7 +58,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   collections: {
-    gap: 10,
     paddingLeft: `calc(${theme.spacing.md} - ${rem(6)})`,
     paddingRight: `calc(${theme.spacing.md} - ${rem(6)})`,
     paddingBottom: theme.spacing.md,
@@ -66,8 +65,6 @@ const useStyles = createStyles((theme) => ({
 
   collectionsHeader: {
     paddingLeft: `calc(${theme.spacing.md} + ${rem(2)})`,
-    paddingRight: theme.spacing.md,
-    marginBottom: rem(5),
   },
 
   collectionLink: {
@@ -87,52 +84,56 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const collections = [
-  { emoji: "👍", label: "Sales" },
-  { emoji: "🚚", label: "Deliveries" },
-  { emoji: "💸", label: "Discounts" },
-  { emoji: "💰", label: "Profits" },
-  { emoji: "✨", label: "Reports" },
-  { emoji: "🛒", label: "Orders" },
-  { emoji: "📅", label: "Events" },
-  { emoji: "🙈", label: "Debts" },
-  { emoji: "💁‍♀️", label: "Customers" },
+type Collection = {
+  title: string;
+  description: string;
+  status: 'COMPLETED' | 'UNCOMPLETED' | 'IN_PROGRESS';
+}
+
+const collections: Collection[] = [
+  {
+    title: "Sales",
+    description: "A brief short description describing this course in a short way",
+    status: "COMPLETED"
+  },
+  {
+    title: "Test kategorie bruh",
+    description: "A brief short description describing this course in a short way",
+    status: "IN_PROGRESS"
+  },
+  {
+    title: "Nejaky hodne dlohy nazev",
+    description: "A brief short description describing this course in a short way",
+    status: "UNCOMPLETED"
+  }
 ];
 
 const NavbarSearch = () => {
   const { classes } = useStyles();
 
-  const collectionLinks = collections.map((collection) => (
+  const collectionLinks = collections.map((element) => (
     <SideBarCategory 
       image={"https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"} 
-      category={"Ngga"} 
-      title={"Test vole"} 
-      date={new Date()} 
-      author={"nechapu toto"}    
+      title={element.title} 
+      description={element.description}
+      status={element.status}
     />
   ));
 
   return (
-    <Navbar height={700} width={{ sm: 400 }} p="md" className={classes.navbar}>
-      <TextInput
-        placeholder="Search"
-        size="lg"
-        icon={<FaSearch size="1rem" />}
-        mb="md"
-      />
-
+    <Navbar height={"100%"} width={{ sm: 400 }} p="md" className={classes.navbar}>
       <Navbar.Section className={classes.section}>
         <Group className={classes.collectionsHeader} position="apart">
-          <Text size="lg" weight={500} color="dimmed">
+          <Text size="lg" weight={500}>
             Collections
           </Text>
-          <Tooltip label="Create collection" withArrow position="right">
-            <ActionIcon variant="default" size={18}>
-              <FaPlus size="0.8rem" />
-            </ActionIcon>
-          </Tooltip>
         </Group>
-        <div className={classes.collections}>{collectionLinks}</div>
+        
+        <ScrollArea h={"85vh"}>
+          <div className={classes.collections}>
+            {collectionLinks}
+          </div>
+        </ScrollArea>
       </Navbar.Section>
     </Navbar>
   );

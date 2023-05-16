@@ -1,8 +1,14 @@
-import { createStyles, Card, Image, Avatar, Text, Group, Badge } from '@mantine/core';
+import { createStyles, Card, Image, Text, Group, Badge } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    ":hover": {
+      cursor: "pointer",
+      transform: "translate(0px, -2.5px)",
+      transition: "ease-in-out",
+      transitionDuration: "0.2s",
+    },
   },
 
   title: {
@@ -18,49 +24,45 @@ const useStyles = createStyles((theme) => ({
 
 interface CategoryProps {
   image: string;
-  category: string;
   title: string;
-  date: Date;
-  author: string;
+  description: string;
+  status: "COMPLETED" | "IN_PROGRESS" | "UNCOMPLETED";
 }
 
-const Category = ({
-  image,
-  category,
-  title,
-  date,
-  author,
-}: CategoryProps) => {
+const Category = ({ image, title, description, status }: CategoryProps) => {
   const { classes } = useStyles();
+
+  const statusBadge = () => {
+    switch (status) {
+      case "COMPLETED":
+        return <Badge color="green">Completed</Badge>;
+
+      case "IN_PROGRESS":
+        return <Badge color="yellow">In progress</Badge>;
+
+      case "UNCOMPLETED":
+        return <Badge color="red">Uncompleted</Badge>;
+    }
+  };
+
   return (
-    <Card withBorder radius="md" p={0} className={classes.card}>
+    <Card mb={15} mt={10} withBorder radius="md" p={0} className={classes.card}>
       <Group noWrap spacing={0}>
         <Image src={image} height={140} width={140} />
         <div className={classes.body}>
-          <Badge color="dimmed" size="md">
-            {category}
-          </Badge>
+          {statusBadge()}
 
           <Text className={classes.title} size={"lg"} mt="xs" mb="md">
             {title}
           </Text>
 
-          <Group noWrap spacing="xs">
-            <Group spacing="xs" noWrap>
-              <Avatar size={20} src={image} />
-              <Text size="xs">Jmeno nejaky</Text>
-            </Group>
-            <Text size="xs" color="dimmed">
-              •
-            </Text>
-            <Text size="xs" color="dimmed">
-              {date.toLocaleDateString()}
-            </Text>
-          </Group>
+          <Text color="dimmed" size="sm">
+            {description}
+          </Text>
         </div>
       </Group>
     </Card>
   );
-}
+};
 
 export default Category;
