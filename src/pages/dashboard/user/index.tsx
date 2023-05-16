@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import SideBar from '../../components/SideBar';
-import { api } from '../../utils/api';
+import SideBar from '../../../components/SideBar';
+import { api } from '../../../utils/api';
 import { useEffect } from 'react';
 import { Grid } from '@mantine/core';
 

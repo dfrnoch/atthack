@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Paper, Text, TextInput, Select, MultiSelect, Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { api } from "../../utils/api";
+import { api } from "../../../utils/api";
 import { Gender } from "@prisma/client";
 
 const WelcomePage = () => {
