@@ -18,6 +18,7 @@ model Company {
 
     Users  User[]
     Invite Invite[]
+    WorkerGroups WorkerGroup[]
 }
 
 model Invite {
@@ -67,4 +68,13 @@ model Exercise {
 enum Gender {
     MALE
     FEMALE
+}
+
+model WorkerGroup {
+    id  String @default(uuid()) @id
+    color String
+    name String
+    
+    companyId   String
+    company     Company    @relation(references: [id], fields: [companyId])
 }
