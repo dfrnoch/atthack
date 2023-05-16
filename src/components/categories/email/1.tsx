@@ -1,15 +1,15 @@
 import {Title} from "@mantine/core";
-import ExerciseContainer from "../../ExerciseContainer";
+import Exercise from "../../ExerciseComponents";
 
 export default function EmailExercise1() {
     return (
-        <ExerciseContainer title={"Spamovací email atd."}>
-            <Title>
+        <Exercise>
+            <Exercise.Title>
                 Spamovací email atd.
-            </Title>
-            <p>
+            </Exercise.Title>
+            <Exercise.Description>
                 Nejaky popis idk
-            </p>
-        </ExerciseContainer>
+            </Exercise.Description>
+        </Exercise>
     );
 };
