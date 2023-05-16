@@ -1,16 +1,6 @@
-import {
-  createStyles,
-  Navbar,
-  TextInput,
-  Code,
-  Text,
-  Group,
-  ActionIcon,
-  Tooltip,
-  rem,
-} from "@mantine/core";
-import Link from "next/link";
+import { createStyles, Navbar, TextInput, Text, Group, ActionIcon, Tooltip, rem } from "@mantine/core";
 import { FaPlus, FaSearch } from "react-icons/fa";
+import SideBarCategory from './category';
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -27,13 +17,6 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  searchCode: {
-    fontWeight: 700,
-    fontSize: rem(10),
-    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0],
-    border: `${rem(1)} solid ${theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[2]}`,
-  },
-
   mainLinks: {
     paddingLeft: `calc(${theme.spacing.md} - ${theme.spacing.xs})`,
     paddingRight: `calc(${theme.spacing.md} - ${theme.spacing.xs})`,
@@ -44,7 +27,7 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: "100%",
-    fontSize: theme.fontSizes.xs,
+    fontSize: theme.fontSizes.sm,
     padding: `${rem(8)} ${theme.spacing.xs}`,
     borderRadius: theme.radius.sm,
     fontWeight: 500,
@@ -75,6 +58,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   collections: {
+    gap: 10,
     paddingLeft: `calc(${theme.spacing.md} - ${rem(6)})`,
     paddingRight: `calc(${theme.spacing.md} - ${rem(6)})`,
     paddingBottom: theme.spacing.md,
@@ -119,28 +103,27 @@ const NavbarSearch = () => {
   const { classes } = useStyles();
 
   const collectionLinks = collections.map((collection) => (
-    <Link href="/" key={collection.label}>
-      <button className={classes.collectionLink} type="button" onClick={(event) => event.preventDefault()}>
-        <span style={{ marginRight: rem(9), fontSize: rem(16) }}>{collection.emoji}</span> {collection.label}
-      </button>
-    </Link>
+    <SideBarCategory 
+      image={"https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"} 
+      category={"Ngga"} 
+      title={"Test vole"} 
+      date={new Date()} 
+      author={"nechapu toto"}    
+    />
   ));
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md" className={classes.navbar}>
+    <Navbar height={700} width={{ sm: 400 }} p="md" className={classes.navbar}>
       <TextInput
         placeholder="Search"
-        size="xs"
-        icon={<FaSearch size="0.8rem" />}
-        rightSectionWidth={70}
-        rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
-        styles={{ rightSection: { pointerEvents: "none" } }}
-        mb="sm"
+        size="lg"
+        icon={<FaSearch size="1rem" />}
+        mb="md"
       />
 
       <Navbar.Section className={classes.section}>
         <Group className={classes.collectionsHeader} position="apart">
-          <Text size="xs" weight={500} color="dimmed">
+          <Text size="lg" weight={500} color="dimmed">
             Collections
           </Text>
           <Tooltip label="Create collection" withArrow position="right">
@@ -153,6 +136,6 @@ const NavbarSearch = () => {
       </Navbar.Section>
     </Navbar>
   );
-}
+};
 
 export default NavbarSearch;
