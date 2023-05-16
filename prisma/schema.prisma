@@ -11,11 +11,14 @@ datasource db {
 }
 
 model Company {
-    id   String @id @default(uuid())
-    name String
+  id   String @id @default(uuid())
+  name String
 
-    admin   User   @relation(fields: [adminId], references: [id])
-    adminId String @unique
+  admin   User   @relation(fields: [adminId], references: [id])
+  adminId String @unique
+
+  phishingEmailFrequencyDays Int
+  lastPhishingEmailSendTime  DateTime?
 
   Invite      Invite[]
   UserDetails UserDetails[]
@@ -107,8 +110,8 @@ model User {
   currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
   exerciseId      Int?
 
-    UserDetails UserDetails?
-    Company     Company?
+  UserDetails UserDetails?
+  Company     Company?
 }
 
 model VerificationToken {
