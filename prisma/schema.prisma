@@ -118,30 +118,30 @@ model Company {
     admin   User   @relation(fields: [adminId], references: [id])
     adminId String @unique
 
-    Invite      Invite[]
-    UserDetails UserDetails[]
-    CompanyWorkers  CompanyWorkerGroup[]
+    Invite         Invite[]
+    UserDetails    UserDetails[]
+    CompanyWorkers CompanyWorkerGroup[]
 }
 
 model CompanyWorkerGroup {
-    id   String  @id @default(uuid())
+    id String @id @default(uuid())
 
-    companyId   String
-    company     Company    @relation(fields: [companyId], references: [id])
+    companyId String
+    company   Company @relation(fields: [companyId], references: [id])
 
-    workers     User[]
+    workers User[]
 
-    name    String
-    color   String
+    name  String
+    color String
 }
 
 model CompanyInvite {
-    id  String  @id @default(uuid())
+    id String @id @default(uuid())
 
-    name    String
+    name String
 
-    start   DateTime
-    end     DateTime
+    start DateTime
+    end   DateTime
 
-    used    Int
+    used Int
 }
