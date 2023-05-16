@@ -4,17 +4,13 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const homeRouter = createTRPCRouter({
   loadData: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.prisma.user.findUnique({
+    const userDetails = await ctx.prisma.userDetails.findFirst({
       where: {
-        id: ctx.session.user.id,
-      },
-      include: {
-        currentCategory: true,
-        currentExercise: true,
+        userId: ctx.session.user.id,
       },
     });
 
-    const completedRegistration = !!user;
+    const completedRegistration = !!userDetails;
     console.log("completedRegistration", completedRegistration);
 
     const data = await ctx.prisma.category.findMany({
@@ -23,6 +19,6 @@ export const homeRouter = createTRPCRouter({
       },
     });
 
-    return { completedRegistration, user, data };
+    return { completedRegistration, data };
   }),
 });
