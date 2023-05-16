@@ -1,7 +1,9 @@
 import { Group, Tabs, Title, Text, createStyles, Divider } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaLink, FaMailBulk, FaPersonBooth } from "react-icons/fa";
 import dynamic from "next/dynamic";
+import { api } from "~/utils/api";
+import AdminPageWelcome from "./vitejte";
 
 const WorkersPage = dynamic(() => import("./pages/workers"));
 const LinksPage = dynamic(() => import("./pages/links"));
@@ -16,6 +18,15 @@ const useStyles = createStyles((theme) => ({
 const AdminPage = () => {
   const [page, setPage] = useState<string | null>("Workers");
   const { classes } = useStyles();
+
+  const user = api.admin.loadData.useQuery();
+  const [creatingComapny, setCreatingCompany] = useState(false);
+
+  useEffect(() => {
+    if (user.data && !user.data.completedRegistration) {
+      setCreatingCompany(true);
+    }
+  }, [user.data?.completedRegistration]);
 
   const getDescription = (value: string): string => {
     switch (value) {
@@ -45,6 +56,7 @@ const AdminPage = () => {
 
   return (
     <div className={classes.body}>
+      {creatingComapny && <AdminPageWelcome onSuccess={() => setCreatingCompany(false)} />}
       <Group display="block">
         <Title>{getTitle(page || "")}</Title>
         <Text>{getDescription(page || "")}</Text>

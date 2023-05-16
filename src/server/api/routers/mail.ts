@@ -37,7 +37,7 @@ export const mailRouter = createTRPCRouter({
             subject: z.string(),
             content: z.string(),
         }))
-        .mutation(async ({ctx}) => {
+        .query(async ({ctx}) => {
             const configuration = new Configuration({
                 apiKey: process.env.OPENAI_API_KEY,
             });
@@ -52,6 +52,8 @@ export const mailRouter = createTRPCRouter({
                 }
             });
 
+            console.log("found user");
+
             if (!user!.UserDetails) {
                 user!.UserDetails = {
                     age: 40,
@@ -64,6 +66,7 @@ export const mailRouter = createTRPCRouter({
             }
 
             const mailer = new PhishingMailer(openai);
+            console.log("Creating random phinshing email...");
             return await mailer.createRandomPhishingEmail(user!);
         })
 });

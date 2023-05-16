@@ -1,5 +1,4 @@
 import {createTransport} from "nodemailer";
-import {Session} from "next-auth";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 export const transport: SMTPTransport.Options = {
@@ -19,7 +18,7 @@ export default class Email {
         await transporter.sendMail({
             to: props.to,
             subject: props.subject,
-            text: props.subject,
+            text: props.content,
             from: `Cyber Security <${process.env.EMAIL_USERNAME}>`,
         });
     }

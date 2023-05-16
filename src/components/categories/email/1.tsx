@@ -1,15 +1,11 @@
-import {Title} from "@mantine/core";
-import Exercise from "../../ExerciseComponents";
+import {api} from "~/utils/api";
+import React, {useEffect, useState} from "react";
 
 export default function EmailExercise1() {
+
     return (
-        <Exercise>
-            <Exercise.Title>
-                Spamovací email atd.
-            </Exercise.Title>
-            <Exercise.Description>
-                Nejaky popis idk
-            </Exercise.Description>
-        </Exercise>
+        <div>
+
+        </div>
     );
 };

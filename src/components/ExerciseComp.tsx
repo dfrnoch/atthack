@@ -1,10 +1,10 @@
-import json from "./categories/OnlineKonv/socE.json"
+import json from "./categories/OnlineKonv/socialEngeneering.json"
 import {useEffect, useState} from "react";
 import ExerciseModal from "./ExerciseModal";
 import Choose from "./exercisisTypes/Choose";
 
 const ExerciseComp = ({index = 0, onDone, exercise}: {exercise:any, index?: number, onDone:(b:boolean)=>void}) => {
-    const currentSlide = json.slides[index]
+    const currentSlide = json.exercises[index]
     const ex = exercise({index, onDone})
 
     return (

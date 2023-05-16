@@ -2,12 +2,13 @@ import { prisma } from "~/server/db";
 import {User, UserDetails} from ".prisma/client";
 import Email from "~/pages/api/Email";
 import phishingEmails from "~/pages/api/phishingEmails";
+import {OpenAIApi} from "openai";
 
 export type UserWithDetails = User & {UserDetails: UserDetails | null};
 
 export default class PhishingMailer {
-    readonly openai: any;
-    constructor(openai: any) {
+    readonly openai: OpenAIApi;
+    constructor(openai: OpenAIApi) {
         this.openai = openai;
     }
 
@@ -33,6 +34,7 @@ export default class PhishingMailer {
     }> {
         const email = phishingEmails[Math.floor(Math.random() * phishingEmails.length)]!;
         const formatted = email.subject + "\n\n" + email.content;
+        console.log("formatted etc. going to personalization");
         const personalized = await this.personalizeMail({user, mail: formatted});
 
         return {
@@ -47,11 +49,13 @@ export default class PhishingMailer {
     }): Promise<string> {
         const user = props.user;
         const userDetails = props.user.UserDetails!;
-        const genderCzech = userDetails.gender === "MALE" ? "muž" : "žena";
+        const genderCzech = userDetails.gender === "FEMALE" ? "žena" : "muž";
 
+        console.log(`Prompt: Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${user.name}, je to ${genderCzech}, je mu ${userDetails.age} let, `
+            + `a jeho koníčky jsou ${userDetails.hobbies}. Personalizuj pro něj tento e-mail:\n\n ${props.mail}`);
         const completion = await this.openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            user: "server-cron-job",
+            user: user.email!,
             messages: [
                 {
                     role: "system", content: `Jsi pomocník na personalizování důležitých e-mailů. 
@@ -61,14 +65,16 @@ export default class PhishingMailer {
                 {
                     role: "user",
                     content:
-                        `Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${user.name}, je to ${genderCzech}, je mu ${userDetails.age} let, `
-                        + `a jeho koníčky jsou ${userDetails.hobbies}. Personalizuj pro něj tento e-mail:\n\n ${props.mail}`
+                        `Personalizuj e-mail pro zaměstnance, který se jmenuje ${user.name}. Je to ${genderCzech}, je mu ${userDetails.age} let, `
+                        + `a jeho koníčky jsou ${userDetails.hobbies}. E-mail:\n\n${props.mail}`
                 },
             ],
-            max_tokens: 4000,
         });
 
-        return completion.data.choices[0].message?.content ?? null;
+        const response = completion.data.choices[0]?.message?.content;
+        if (!response) throw new Error("No response from OpenAI API.");
+        console.log("Response from openai: ", response);
+        return response;
     }
 
     public async getAllReceivingUsers() {

@@ -1,7 +1,7 @@
 {
   "title": "Social Engineering",
   "description": "Social Engineering je technika, kterou kyberzločinci používají k manipulaci lidí do poskytnutí důvěrných informací. Tyto informace mohou zahrnovat hesla, finanční údaje nebo osobní identifikační informace.",
-  "slides": [
+  "exercises": [
     {
       "title": "Malware",
       "text": "Kategorie útoků, které zahrnují ransomware, oběti dostávají naléhavě formulovanou zprávu a jsou přesvědčeny k instalaci škodlivého softwaru na své zařízení(ích). Ironicky, oblíbenou taktikou je říct oběti, že na jejím počítači už byl nainstalován škodlivý software a že odesílatel software odstraní, pokud zaplatí poplatek."
