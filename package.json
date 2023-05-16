@@ -24,6 +24,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
+    "rome": "12.1.0",
     "@types/node": "^20.1.0",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.35",
@@ -39,8 +40,5 @@
     "prisma": "^4.12.0",
     "tailwindcss": "^3.2.6",
     "typescript": "^5.0.2"
-  },
-  "ct3aMetadata": {
-    "initVersion": "7.4.0"
   }
 }
