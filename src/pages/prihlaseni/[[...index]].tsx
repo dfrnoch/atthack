@@ -2,7 +2,7 @@ import { SignIn } from "@clerk/nextjs";
 
 const SignInPage = () => (
   <div style={styles}>
-    <SignIn path="/prihlaseni" routing="path" signUpUrl="/registrace" redirectUrl="/domu" />
+    <SignIn path="/prihlaseni" routing="path" signUpUrl="/registrace" />
   </div>
 );
 
