@@ -2,117 +2,119 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Company {
-    id          String @id @default(uuid())
-    name        String
-    description String
-    owner       String
+  id                         String    @id @default(uuid())
+  name                       String
+  description                String
+  owner                      String
+  phishingEmailFrequencyDays Int
+  lastPhishingEmailSendTime  DateTime?
 
-    Invite      Invite[]
-    UserDetails UserDetails[]
+  Invite      Invite[]
+  UserDetails UserDetails[]
 }
 
 model Invite {
-    id        String  @id @default(uuid())
-    companyId String
-    Company   Company @relation(fields: [companyId], references: [id])
+  id        String  @id @default(uuid())
+  companyId String
+  Company   Company @relation(fields: [companyId], references: [id])
 
-    expiresAt DateTime?
-    limit     Int?
-    used      Int       @default(0)
+  expiresAt DateTime?
+  limit     Int?
+  used      Int       @default(0)
 }
 
 model Category {
-    id          Int        @id @default(autoincrement())
-    name        String
-    description String
-    exercises   Exercise[]
-    userId      Int
-    User        User[]
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  exercises   Exercise[]
+  userId      Int
+  User        User[]
 }
 
 model Exercise {
-    id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-    Category   Category? @relation(fields: [categoryId], references: [id])
-    categoryId Int?
-    User       User[]
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  User       User[]
 }
 
 enum Gender {
-    MALE
-    FEMALE
+  MALE
+  FEMALE
 }
 
 model UserDetails {
-    id String @id @default(uuid())
+  id String @id @default(uuid())
 
-    age     Int
-    gender  Gender
-    hobbies String[]
+  age     Int
+  gender  Gender
+  hobbies String[]
 
-    User   User   @relation(fields: [userId], references: [id])
-    userId String @unique
+  User   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 
-    Company   Company? @relation(fields: [companyId], references: [id])
-    companyId String?
+  Company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
 }
 
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? // @db.Text
+  access_token      String? // @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? // @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 
-    currentCategory Category? @relation(fields: [categoryId], references: [id])
-    categoryId      Int?
-    currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
-    exerciseId      Int?
+  currentCategory Category? @relation(fields: [categoryId], references: [id])
+  categoryId      Int?
+  currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
+  exerciseId      Int?
 
-    UserDetails UserDetails?
+  UserDetails UserDetails?
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
