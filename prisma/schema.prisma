@@ -50,9 +50,6 @@ model UserDetails {
 
   User   User   @relation(fields: [userId], references: [id])
   userId String @unique
-
-  Company   Company? @relation(fields: [companyId], references: [id])
-  companyId String?
 }
 
 model Account {
@@ -124,7 +121,6 @@ model Company {
   adminId String @unique
 
   Invite                     Invite[]
-  UserDetails                UserDetails[]
   CompanyWorkers             CompanyWorkerGroup[]
   phishingEmailFrequencyDays Int // 0 = disabled
   lastPhishingEmailSendTime  DateTime?

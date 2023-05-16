@@ -4,19 +4,22 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const adminRouter = createTRPCRouter({
   loadData: protectedProcedure.query(async ({ ctx }) => {
-    const userDetails = await ctx.prisma.userDetails.findFirst({
+    const company = await ctx.prisma.company.findUnique({
       where: {
-        userId: ctx.session.user.id,
+        adminId: ctx.session.user.id,
       },
     });
 
-    const completedRegistration = !!userDetails?.companyId;
+    const completedRegistration = !!company;
+    console.log("completedRegistration", completedRegistration);
+
     return { completedRegistration };
   }),
 
   createCompany: protectedProcedure.input(z.string()).mutation(async ({ input, ctx }) => {
     const company = await ctx.prisma.company.create({
       data: {
+        phishingEmailFrequencyDays: 7,
         adminId: ctx.session.user.id,
         name: input,
       },
