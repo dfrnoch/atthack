@@ -22,6 +22,7 @@ const HomePage = () => {
       <Grid>
         <Grid.Col span={4}>sfdljk</Grid.Col>
 
+
         <Grid.Col span={8}>sfdjlkfdsjlk</Grid.Col>
       </Grid>
     </div>

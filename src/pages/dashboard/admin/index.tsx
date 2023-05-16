@@ -17,9 +17,9 @@ const AdminPage = () => {
 
   const getDescription = (value: string): string => {
     switch(value) {
-        case "Workers": return "Manage your workers in this simple list";
-        case "Links": return "Manage your incoming and outcoming invites";
-        case "Mailing": return "Manage your mailing sessions for your workers";
+        case "Workers": return "Spravuj svoje zaměstnance v jednoduchém seznamu.";
+        case "Links": return "Spravuj své příchozí a odchozí pozvánky";
+        case "Mailing": return "Spravuj automatické maily pro zaměstnance";
     }
 
     return "";
@@ -27,8 +27,8 @@ const AdminPage = () => {
 
   const getTitle = (value: string): string => {
     switch(value) {
-        case "Workers": return "Zamestnanci";
-        case "Links": return "Pozvanky";
+        case "Workers": return "Zaměstnanci";
+        case "Links": return "Pozvánky";
         case "Mailing": return "Maily";
     }
 
@@ -44,8 +44,8 @@ const AdminPage = () => {
 
       <Tabs mt={10} variant="pills" onTabChange={setPage} value={page} defaultValue="gallery">
         <Tabs.List> 
-          <Tabs.Tab value={"Workers"} icon={<FaPersonBooth size="0.8rem" />}>Zamestnanci</Tabs.Tab>
-          <Tabs.Tab value={"Links"} icon={<FaLink size="0.8rem" />}>Pozvanky</Tabs.Tab>
+          <Tabs.Tab value={"Workers"} icon={<FaPersonBooth size="0.8rem" />}>Zaměstnanci</Tabs.Tab>
+          <Tabs.Tab value={"Links"} icon={<FaLink size="0.8rem" />}>Pozvánky</Tabs.Tab>
           <Tabs.Tab value={"Mailing"} icon={<FaMailBulk size="0.8rem" />}>Maily</Tabs.Tab>
         </Tabs.List>
 

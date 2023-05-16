@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Text, TextInput, Select, MultiSelect, Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { api } from "../../../utils/api";
 import { Gender } from "@prisma/client";
+import Router from "next/router";
 
 const WelcomePage = () => {
   const createUser = api.user.createUserDetails.useMutation();
@@ -13,6 +14,12 @@ const WelcomePage = () => {
   const [education, setEducation] = useState("");
 
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  useEffect(() => {
+    if (createUser.isSuccess) {
+      Router.replace("/dashboard");
+    }
+  }, [createUser.isSuccess]);
 
   return (
     <Container size={isMobile ? "xs" : "sm"} className="mt-10">

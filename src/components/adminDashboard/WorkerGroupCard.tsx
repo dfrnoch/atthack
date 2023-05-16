@@ -34,6 +34,7 @@ interface ArticleCardVerticalProps {
   title: string;
   workerCount: number;
   createdAt: Date;
+  onClick: () => void;
 }
 
 const WorkerGroupCard = ({
@@ -41,11 +42,12 @@ const WorkerGroupCard = ({
   category,
   title,
   workerCount, 
-  createdAt
+  createdAt,
+  onClick
 }: ArticleCardVerticalProps) => {
   const { classes } = useStyles();
   return (
-    <Card withBorder radius="md" p={0} className={classes.card}>
+    <Card onClick={onClick} withBorder radius="md" p={0} className={classes.card}>
       <Group noWrap spacing={0}>
         <div 
             style={{ backgroundColor: color }} 
