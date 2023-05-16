@@ -1,5 +1,3 @@
-import {Title} from "@mantine/core";
-import ExerciseContainer from "../../ExerciseContainer";
 import Exercise from "../../ExerciseComponents";
 
 /**
