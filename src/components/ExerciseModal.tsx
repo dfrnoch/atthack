@@ -6,8 +6,8 @@ import {PropsWithChildren} from "react";
 * */
 export default function ExerciseModal(props: PropsWithChildren<{}>) {
     return (
-        <div className={"bg-black/10 w-full h-screen flex"}>
-            <div className={"max-w-4xl w-full bg-neutral-800 p-6 shadow-lg mx-auto self-center rounded-lg"}>
+        <div className={"flex m-8 h-screen"}>
+            <div className={"max-w-6xl m-4 w-full bg-neutral-800 p-6 shadow-lg mx-auto self-center rounded-lg"}>
                 {props.children}
             </div>
         </div>
