@@ -11,6 +11,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/localizations": "^1.13.0",
     "@clerk/nextjs": "^4.17.3",
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",

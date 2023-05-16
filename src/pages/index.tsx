@@ -11,14 +11,14 @@ import {
   ThemeIcon,
   rem,
   Accordion,
-} from '@mantine/core';
-import { FaCheck, FaLock } from 'react-icons/fa';
+} from "@mantine/core";
+import { FaCheck, FaLock } from "react-icons/fa";
 import Router from "next/router";
 
 const useStyles = createStyles((theme) => ({
   inner: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
     paddingTop: `calc(${theme.spacing.xl} * 4)`,
     paddingBottom: `calc(${theme.spacing.xl} * 4)`,
   },
@@ -27,41 +27,41 @@ const useStyles = createStyles((theme) => ({
     maxWidth: rem(480),
     marginRight: `calc(${theme.spacing.xl} * 3)`,
 
-    [theme.fn.smallerThan('md')]: {
-      maxWidth: '100%',
+    [theme.fn.smallerThan("md")]: {
+      maxWidth: "100%",
       marginRight: 0,
     },
   },
 
   title: {
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontSize: rem(44),
     lineHeight: 1.2,
     fontWeight: 900,
 
-    [theme.fn.smallerThan('xs')]: {
+    [theme.fn.smallerThan("xs")]: {
       fontSize: rem(28),
     },
   },
 
   control: {
-    [theme.fn.smallerThan('xs')]: {
+    [theme.fn.smallerThan("xs")]: {
       flex: 1,
-    }
+    },
   },
 
   image: {
     flex: 1,
 
-    [theme.fn.smallerThan('md')]: {
-      display: 'none',
+    [theme.fn.smallerThan("md")]: {
+      display: "none",
     },
   },
 
   highlight: {
-    position: 'relative',
-    backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
+    position: "relative",
+    backgroundColor: theme.fn.variant({ variant: "light", color: theme.primaryColor }).background,
     borderRadius: theme.radius.sm,
     padding: `${rem(4)} ${rem(12)}`,
   },
@@ -79,14 +79,13 @@ const useStyles = createStyles((theme) => ({
   item: {
     borderRadius: theme.radius.md,
     marginBottom: theme.spacing.lg,
-    border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-      }`,
-  }
+    border: `${rem(1)} solid ${theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]}`,
+  },
 }));
 
 const Homepage = () => {
   const { classes } = useStyles();
-  
+
   return (
     <>
       <Head>
@@ -99,10 +98,12 @@ const Homepage = () => {
           <div className={classes.inner}>
             <div className={classes.content}>
               <Title className={classes.title}>
-                <span className={classes.highlight}>Bezpečí</span> na internetu<br /> vysvětleno jednoduše
+                <span className={classes.highlight}>Bezpečí</span> na internetu
+                <br /> vysvětleno jednoduše
               </Title>
               <Text color="dimmed" mt="md">
-                Naše mise je poskytovat uživatelům všech věkových skupin dovednosti a znalosti potřebné k navigaci v digitálním světě s důvěrou a bezpečností.
+                Naše mise je poskytovat uživatelům všech věkových skupin dovednosti a znalosti potřebné k navigaci v
+                digitálním světě s důvěrou a bezpečností.
               </Text>
 
               <List
@@ -116,13 +117,19 @@ const Homepage = () => {
                 }
               >
                 <List.Item>
-                  <b>Bezpečnost pro všechny</b>: Věříme, že bezpečnost na internetu je základní právo. Naše kurzy jsou navrženy tak, aby byly přístupné a srozumitelné pro všechny, bez ohledu na věk nebo technickou zručnost.
+                  <b>Bezpečnost pro všechny</b>: Věříme, že bezpečnost na internetu je základní právo. Naše kurzy jsou
+                  navrženy tak, aby byly přístupné a srozumitelné pro všechny, bez ohledu na věk nebo technickou
+                  zručnost.
                 </List.Item>
                 <List.Item>
-                  <b>Praktické dovednosti</b>: Naše kurzy se zaměřují na praktické dovednosti, které můžete začít používat ihned. Učíme vás, jak rozpoznat a předcházet hrozbám, které by mohly ohrozit vaše osobní údaje a zařízení.
+                  <b>Praktické dovednosti</b>: Naše kurzy se zaměřují na praktické dovednosti, které můžete začít
+                  používat ihned. Učíme vás, jak rozpoznat a předcházet hrozbám, které by mohly ohrozit vaše osobní
+                  údaje a zařízení.
                 </List.Item>
                 <List.Item>
-                  <b>Neustálý rozvoj</b>: V digitálním světě, kde se technologie a hrozby neustále vyvíjejí, se zavazujeme k průběžné aktualizaci a rozšiřování našich kurzů, abychom zůstali na špici oblasti internetové bezpečnosti.
+                  <b>Neustálý rozvoj</b>: V digitálním světě, kde se technologie a hrozby neustále vyvíjejí, se
+                  zavazujeme k průběžné aktualizaci a rozšiřování našich kurzů, abychom zůstali na špici oblasti
+                  internetové bezpečnosti.
                 </List.Item>
               </List>
 
@@ -150,27 +157,43 @@ const Homepage = () => {
           <Accordion variant="separated">
             <Accordion.Item className={classes.item} value="reset-password">
               <Accordion.Control>Co je to internetová bezpečnost?</Accordion.Control>
-              <Accordion.Panel>Internetová bezpečnost je soubor pravidel a praktik, které nám pomáhají chránit naše osobní informace a zařízení při používání internetu. Zahrnuje ochranu proti virům, hackerům, podvodům a dalším hrozbám.</Accordion.Panel>
+              <Accordion.Panel>
+                Internetová bezpečnost je soubor pravidel a praktik, které nám pomáhají chránit naše osobní informace a
+                zařízení při používání internetu. Zahrnuje ochranu proti virům, hackerům, podvodům a dalším hrozbám.
+              </Accordion.Panel>
             </Accordion.Item>
 
             <Accordion.Item className={classes.item} value="another-account">
               <Accordion.Control>Proč je důležité se učit o internetové bezpečnosti?</Accordion.Control>
-              <Accordion.Panel>S rostoucí závislostí na technologii a internetu je důležitější než kdy dříve chránit sebe a své informace online. Učení o internetové bezpečnosti vám může pomoci předcházet útokům, krádežím identity a dalším potenciálním hrozbám.</Accordion.Panel>
+              <Accordion.Panel>
+                S rostoucí závislostí na technologii a internetu je důležitější než kdy dříve chránit sebe a své
+                informace online. Učení o internetové bezpečnosti vám může pomoci předcházet útokům, krádežím identity a
+                dalším potenciálním hrozbám.
+              </Accordion.Panel>
             </Accordion.Item>
 
             <Accordion.Item className={classes.item} value="newsletter">
               <Accordion.Control>Jaké kurzy nabízíte pro učení o internetové bezpečnosti?</Accordion.Control>
-              <Accordion.Panel>Nabízíme řadu kurzů zaměřených na různé aspekty internetové bezpečnosti, včetně základů internetové bezpečnosti, ochrany osobních údajů, bezpečného používání sociálních médií a dalších.</Accordion.Panel>
+              <Accordion.Panel>
+                Nabízíme řadu kurzů zaměřených na různé aspekty internetové bezpečnosti, včetně základů internetové
+                bezpečnosti, ochrany osobních údajů, bezpečného používání sociálních médií a dalších.
+              </Accordion.Panel>
             </Accordion.Item>
 
             <Accordion.Item className={classes.item} value="credit-card">
               <Accordion.Control>Jsou vaše kurzy vhodné pro všechny věkové skupiny?</Accordion.Control>
-              <Accordion.Panel>Ano, naše kurzy jsou navrženy tak, aby byly přístupné a pochopitelné pro všechny věkové skupiny. Máme kurzy speciálně navržené pro děti, dospívající, dospělé i seniory.</Accordion.Panel>
+              <Accordion.Panel>
+                Ano, naše kurzy jsou navrženy tak, aby byly přístupné a pochopitelné pro všechny věkové skupiny. Máme
+                kurzy speciálně navržené pro děti, dospívající, dospělé i seniory.
+              </Accordion.Panel>
             </Accordion.Item>
 
             <Accordion.Item className={classes.item} value="payment">
               <Accordion.Control>Co když mám problémy nebo otázky během kurzu?</Accordion.Control>
-              <Accordion.Panel>Pokud máte během kurzu jakékoli otázky nebo problémy, neváhejte se na nás obrátit prostřednictvím naší stránky podpory. Naši odborníci jsou připraveni vám pomoci.</Accordion.Panel>
+              <Accordion.Panel>
+                Pokud máte během kurzu jakékoli otázky nebo problémy, neváhejte se na nás obrátit prostřednictvím naší
+                stránky podpory. Naši odborníci jsou připraveni vám pomoci.
+              </Accordion.Panel>
             </Accordion.Item>
           </Accordion>
         </Container>
