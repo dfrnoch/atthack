@@ -133,6 +133,8 @@ model CompanyWorkerGroup {
 
     name    String
     color   String
+
+    createdAt   DateTime  @default(now())
 }
 
 model CompanyInvite {
