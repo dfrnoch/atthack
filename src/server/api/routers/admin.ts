@@ -17,16 +17,8 @@ export const adminRouter = createTRPCRouter({
   createCompany: protectedProcedure.input(z.string()).mutation(async ({ input, ctx }) => {
     const company = await ctx.prisma.company.create({
       data: {
+        adminId: ctx.session.user.id,
         name: input,
-      },
-    });
-
-    await ctx.prisma.userDetails.update({
-      where: {
-        userId: ctx.session.user.id,
-      },
-      data: {
-        companyId: company.id,
       },
     });
 

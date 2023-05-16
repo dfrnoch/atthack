@@ -10,17 +10,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Company {
-    id   String @id @default(uuid())
-    name String
-
-    admin   User   @relation(fields: [adminId], references: [id])
-    adminId String @unique
-
-    Invite      Invite[]
-    UserDetails UserDetails[]
-}
-
 model Invite {
     id        String  @id @default(uuid())
     companyId String
@@ -107,6 +96,9 @@ model User {
     currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
     exerciseId      Int?
 
+    workerGroup CompanyWorkerGroup? @relation(fields: [workerGroupId], references: [id])
+    workerGroupId   String?
+
     UserDetails UserDetails?
     Company     Company?
 }
@@ -117,4 +109,41 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Company {
+    id   String @id @default(uuid())
+    name String
+
+    admin   User   @relation(fields: [adminId], references: [id])
+    adminId String @unique
+
+    Invite         Invite[]
+    UserDetails    UserDetails[]
+    CompanyWorkers CompanyWorkerGroup[]
+}
+
+model CompanyWorkerGroup {
+    id String @id @default(uuid())
+
+    companyId String
+    company   Company @relation(fields: [companyId], references: [id])
+
+    workers User[]
+
+    name    String
+    color   String
+
+    createdAt   DateTime  @default(now())
+}
+
+model CompanyInvite {
+    id String @id @default(uuid())
+
+    name String
+
+    start DateTime
+    end   DateTime
+
+    used Int
 }
