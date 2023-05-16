@@ -10,6 +10,26 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model Company {
+    id          String @id @default(uuid())
+    name        String
+    description String
+    owner       String
+
+    Users  User[]
+    Invite Invite[]
+}
+
+model Invite {
+    id        String  @id @default(uuid())
+    companyId String
+    Company   Company @relation(fields: [companyId], references: [id])
+
+    expiresAt DateTime?
+    limit     Int?
+    used      Int       @default(0)
+}
+
 model User {
     clerkId   String  @unique
     age       Int
@@ -22,6 +42,9 @@ model User {
 
     currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
     exerciseId      Int?
+
+    Company   Company @relation(fields: [companyId], references: [id])
+    companyId String
 }
 
 model Category {
