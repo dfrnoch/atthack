@@ -16,9 +16,21 @@ export default function ({json, exercise}:{json:any, exercise?:any}) {
                 setActive(true)}
             }>{children}</button>
         }
+        const Introduction = () => {
+            return (
+                <div className={"flex flex-col w-[60vw] h-1/3"}>
+                    <h2 className={"text-3xl font-extrabold text-black"}>{json.title}</h2>
+                    <h3 className={"text-xl font-bold text-black"}>{json.description}</h3>
+                </div>
+            )
+        }
+
         return (
             <div className={"relative flex flex-col w-[200px] mx-auto my-auto h-70%"}>
-                {json && json.slides ?Array.from({length:json.slides!.length}).map((_,i) => {
+
+                <Introduction/>
+
+                {json && json.exercises ?Array.from({length:json.exercises!.length}).map((_,i) => {
                     return <Button key={i}>{i+1}</Button>
                 }) : <div>no data</div>}
 

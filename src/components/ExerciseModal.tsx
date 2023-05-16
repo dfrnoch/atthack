@@ -16,9 +16,6 @@ export default function ExerciseModal({children, title, description, sectionTitl
                 <div className={"my-4"}>
                 {children}
                 </div>
-
-                {/*FOR TEST*/}
-                <div className={"h-60 w-60"}></div>
             </div>
         </div>
     )
