@@ -1,4 +1,4 @@
-import { Flex, Title, Button, Modal, TextInput, NumberInput, Table } from "@mantine/core";
+import { Flex, Title, Button, Modal, Text, NumberInput, Table } from "@mantine/core";
 import { DatePickerInput, DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
