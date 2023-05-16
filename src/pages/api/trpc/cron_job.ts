@@ -42,8 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             {
                 role: "user",
                 content:
-                    `Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${name}, je to ${genderCzech}, je mu ${age} let, `
-                    + `a jeho koníčky jsou ${hobbies}. Personalizuj pro něj tento e-mail:\n\n ${mailContent}`
+                    `Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${name}, je to ${genderCzech}, je mu ${age} let, a jeho koníčky jsou ${hobbies}. Personalizuj pro něj tento e-mail:\n\n ${mailContent}`
             },
         ],
         max_tokens: 4000,
@@ -74,8 +73,7 @@ async function personalizeMail(props: {
             {
                 role: "user",
                 content:
-                    `Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${props.name}, je to ${genderCzech}, je mu ${props.age} let, `
-                    + `a jeho koníčky jsou ${props.hobbies}. Personalizuj pro něj tento e-mail:\n\n ${props.mailContent}`
+                    `Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${props.name}, je to ${genderCzech}, je mu ${props.age} let, a jeho koníčky jsou ${props.hobbies}. Personalizuj pro něj tento e-mail:\n\n ${props.mailContent}`
             },
         ],
         max_tokens: 4000,

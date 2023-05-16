@@ -97,7 +97,7 @@ model User {
     exerciseId      Int?
 
     workerGroup CompanyWorkerGroup? @relation(fields: [workerGroupId], references: [id])
-    workerGroupId   String
+    workerGroupId   String?
 
     UserDetails UserDetails?
     Company     Company?

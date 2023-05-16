@@ -2,9 +2,19 @@ import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title, Table, Checkb
 import WorkerGroupCard from "../../../../components/adminDashboard/WorkerGroupCard";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import { api } from "~/utils/api";
 
 const Groups = ({ onSelect }: { onSelect: () => void }) => {
   const [modalOpened, { open, close }] = useDisclosure();
+  const createGroup = api.company.addWorkerGroup.useMutation({
+    onSuccess: () => {
+        close();
+    }
+  });
+  const [createGroupData, setCreateGroupData] = useState({
+    name: "",
+    color: ""
+  });
 
   return (
     <div>
@@ -17,14 +27,29 @@ const Groups = ({ onSelect }: { onSelect: () => void }) => {
       </Flex>
 
       <Modal opened={modalOpened} onClose={close} title="Pridat skupinu">
-        <TextInput withAsterisk label="Nazev skupiny" placeholder="Zadej..." />
+        <TextInput 
+            value={createGroupData.name} 
+            onChange={(e) => setCreateGroupData({ ...createGroupData, name: e.target.value })}
+            withAsterisk 
+            label="Nazev skupiny" 
+            placeholder="Zadej..." 
+        />
 
         <Text mt={10} mb={5} size={"sm"}>
           Barva
         </Text>
-        <ColorPicker />
+        <ColorPicker 
+            value={createGroupData.color} 
+            onChange={(color) => setCreateGroupData({ ...createGroupData, color })} 
+        />
 
-        <Button mt={15}>Pridat</Button>
+        <Button 
+            mt={15}
+            loading={createGroup.isLoading}
+            onClick={() => createGroup.mutateAsync(createGroupData)}
+        >
+            Pridat
+        </Button>
       </Modal>
 
       <Flex direction="row" wrap="wrap" gap={18} mt={20}>
