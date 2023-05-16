@@ -5,13 +5,13 @@ import { useEffect } from "react";
 
 const HomePage = () => {
   const router = useRouter();
-  const { data, error } = api.home.loadData.useQuery();
+  const { data } = api.home.loadData.useQuery();
 
   useEffect(() => {
-    if (error) {
+    if (!data?.completedRegistration) {
       router.push("/domu/vitejte");
     }
-  }, [error, router]);
+  }, [data, router]);
 
   return (
     <div>
