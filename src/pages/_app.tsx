@@ -5,12 +5,25 @@ import {
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
+import {createEmotionCache, MantineProvider, Navbar} from "@mantine/core";
+
+// Do this to prevent mantine clashing with tailwind.
+const myCache = createEmotionCache({ key: 'mantine', prepend: false });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
 
   return (
     <ClerkProvider {...pageProps}>
-      <Component {...pageProps} />
+        <MantineProvider
+            withGlobalStyles
+            withNormalizeCSS
+            emotionCache={myCache}
+            theme={{
+                colorScheme: 'dark',
+            }}
+        >
+            <Component {...pageProps} />
+        </MantineProvider>
     </ClerkProvider>
   );
 };
