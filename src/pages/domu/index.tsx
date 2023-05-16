@@ -5,14 +5,16 @@ import { useEffect } from 'react';
 import { Grid } from '@mantine/core';
 
 const HomePage = () => {
-  // const router = useRouter();
-  // const { error } = api.exercise.loadData.useQuery();
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   if (error) {
-  //     router.push("/domu/vitejte");
-  //   }
-  // }, [error, router]);
+  // @ts-ignore
+  const { error, data } = api.exercise.loadData.useQuery();
+
+  useEffect(() => {
+    if (data && !data.completedRegistration) {
+      router.push("/domu/vitejte");
+    }
+  }, [data, router]);
 
   return (
     <div>

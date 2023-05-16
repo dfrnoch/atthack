@@ -7,14 +7,20 @@ export const userRouter = createTRPCRouter({
     .input(
       z.object({
         age: z.number(),
-        gender: z.string(),
-        hobby: z.string(),
+        gender: z.enum(["MALE", "FEMALE"]),
+        hobbies: z.array(z.string()).optional(),
         education: z.string().optional(),
       }),
     )
-    .query(({ input, ctx }) => {
-      console.log("input", input);
-
-      return ctx.auth.userId;
+    .mutation(async ({ input, ctx }) => {
+      return await ctx.prisma.user.create({
+        data: {
+          clerkId: ctx.auth.userId,
+          age: input.age,
+          hobbies: input.hobbies?.join(","),
+          education: input.education,
+          gender: input.gender,
+        },
+      });
     }),
 });

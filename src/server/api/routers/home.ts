@@ -15,6 +15,7 @@ export const homeRouter = createTRPCRouter({
     });
 
     const completedRegistration = !!user;
+    console.log("completedRegistration", completedRegistration);
 
     const data = await ctx.prisma.category.findMany({
       include: {

@@ -14,7 +14,7 @@ model User {
     clerkId   String  @unique
     age       Int
     gender    Gender
-    hobbies   String
+    hobbies   String?
     education String?
 
     currentCategory Category? @relation(fields: [categoryId], references: [id])
