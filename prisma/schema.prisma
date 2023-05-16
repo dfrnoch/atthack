@@ -122,9 +122,8 @@ model Company {
 
   Invite                     Invite[]
   CompanyWorkers             CompanyWorkerGroup[]
-  
-  phishingEmailFrequencyDays Int // 0 = disabled
-  lastPhishingEmailSendTime  DateTime?
+  phishingEmailFrequencyDays Int                @default(0)
+  lastPhishingEmailSendTime  DateTime?            @default(now())
 }
 
 model CompanyWorkerGroup {
