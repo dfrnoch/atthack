@@ -1,5 +1,5 @@
 {
-  "name": "clerk-t3-minimal",
+  "name": "t3-minimal",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,8 +11,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@clerk/localizations": "^1.13.0",
-    "@clerk/nextjs": "^4.17.3",
+    "@next-auth/prisma-adapter": "^1.0.5",
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
     "@mantine/core": "^6.0.11",
@@ -21,8 +20,10 @@
     "@mantine/hooks": "^6.0.11",
     "@mantine/modals": "^6.0.11",
     "@mantine/next": "^6.0.11",
+    "next-auth": "^4.21.0",
     "@mantine/notifications": "^6.0.11",
     "@mantine/nprogress": "^6.0.11",
+    "@t3-oss/env-nextjs": "^0.2.1",
     "@prisma/client": "^4.9.0",
     "@tanstack/react-query": "^4.29.1",
     "@trpc/client": "^10.16.0",

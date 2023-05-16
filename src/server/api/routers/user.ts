@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
-  createUserData: protectedProcedure
+  createUserDetails: protectedProcedure
     .input(
       z.object({
         age: z.number(),
@@ -13,14 +13,6 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return await ctx.prisma.user.create({
-        data: {
-          clerkId: ctx.auth.userId,
-          age: input.age,
-          hobbies: input.hobbies?.join(","),
-          education: input.education,
-          gender: input.gender,
-        },
-      });
+      return "";
     }),
 });

@@ -16,9 +16,8 @@ model Company {
     description String
     owner       String
 
-    Users  User[]
-    Invite Invite[]
-    WorkerGroups WorkerGroup[]
+    Invite      Invite[]
+    UserDetails UserDetails[]
 }
 
 model Invite {
@@ -29,23 +28,6 @@ model Invite {
     expiresAt DateTime?
     limit     Int?
     used      Int       @default(0)
-}
-
-model User {
-    clerkId   String  @unique
-    age       Int
-    gender    Gender
-    hobbies   String?
-    education String?
-
-    currentCategory Category? @relation(fields: [categoryId], references: [id])
-    categoryId      Int?
-
-    currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
-    exerciseId      Int?
-
-    Company   Company @relation(fields: [companyId], references: [id])
-    companyId String
 }
 
 model Category {
@@ -70,11 +52,67 @@ enum Gender {
     FEMALE
 }
 
-model WorkerGroup {
-    id  String @default(uuid()) @id
-    color String
-    name String
-    
-    companyId   String
-    company     Company    @relation(references: [id], fields: [companyId])
+model UserDetails {
+    id String @id @default(uuid())
+
+    age     Int
+    gender  Gender
+    hobbies String[]
+
+    User   User   @relation(fields: [userId], references: [id])
+    userId String @unique
+
+    Company   Company? @relation(fields: [companyId], references: [id])
+    companyId String?
+}
+
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? // @db.Text
+    access_token      String? // @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? // @db.Text
+    session_state     String?
+    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+
+    currentCategory Category? @relation(fields: [categoryId], references: [id])
+    categoryId      Int?
+    currentExercise Exercise? @relation(fields: [exerciseId], references: [id])
+    exerciseId      Int?
+
+    UserDetails UserDetails?
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
 }

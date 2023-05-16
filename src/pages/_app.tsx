@@ -1,31 +1,29 @@
 import { type AppType } from "next/app";
-import {
-  ClerkProvider,
-} from "@clerk/nextjs";
+import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
+import { type Session } from "next-auth";
 
 import "../styles/globals.css";
-import {createEmotionCache, MantineProvider, Navbar} from "@mantine/core";
+import { createEmotionCache, MantineProvider, Navbar } from "@mantine/core";
 
 // Do this to prevent mantine clashing with tailwind.
-const myCache = createEmotionCache({ key: 'mantine', prepend: false });
+const myCache = createEmotionCache({ key: "mantine", prepend: false });
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-
+const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
-    <ClerkProvider {...pageProps}>
-        <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            emotionCache={myCache}
-            theme={{
-                colorScheme: 'dark',
-                // TODO: Change colors.
-            }}
-        >
-            <Component {...pageProps} />
-        </MantineProvider>
-    </ClerkProvider>
+    <SessionProvider session={session}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        emotionCache={myCache}
+        theme={{
+          colorScheme: "dark",
+          // TODO: Change colors.
+        }}
+      >
+        <Component {...pageProps} />
+      </MantineProvider>
+    </SessionProvider>
   );
 };
 
