@@ -13,7 +13,7 @@ import {
   Accordion,
 } from "@mantine/core";
 import { FaCheck, FaLock } from "react-icons/fa";
-import Router from "next/router";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -134,14 +134,8 @@ const Homepage = () => {
               </List>
 
               <Group mt={30}>
-                <Button
-                  radius="xl"
-                  size="md"
-                  onClick={() => Router.push("/signin")}
-                  leftIcon={<FaLock />}
-                  className={classes.control}
-                >
-                  Přihlásit se
+                <Button radius="xl" size="md" leftIcon={<FaLock />} className={classes.control}>
+                  <Link href="/prihlaseni">Přihlásit se</Link>
                 </Button>
               </Group>
             </div>
