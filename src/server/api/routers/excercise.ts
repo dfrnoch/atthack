@@ -8,7 +8,4 @@ export const excersiceRouter = createTRPCRouter({
       greeting: `Hello ${input.text}`,
     };
   }),
-  loadData: protectedProcedure.query(({ ctx }) => {
-    return ctx.auth.userId;
-  }),
 });

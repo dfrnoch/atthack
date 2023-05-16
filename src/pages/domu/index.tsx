@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router';
-import SideBar from '../../components/SideBar';
-import { api } from '../../utils/api';
-import { useEffect } from 'react';
+import { useRouter } from "next/router";
+import SideBar from "../../components/SideBar";
+import { api } from "../../utils/api";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const router = useRouter();
-  const { error } = api.exercise.loadData.useQuery();
+  const { data, error } = api.home.loadData.useQuery();
 
   useEffect(() => {
     if (error) {
@@ -15,7 +15,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <SideBar/>
+      <SideBar />
     </div>
   );
 };
