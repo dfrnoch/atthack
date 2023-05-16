@@ -1,4 +1,4 @@
-import { Group, Tabs, Title, Text, createStyles, Divider } from "@mantine/core";
+import { Group, Tabs, Title, Text, createStyles, Divider, Container } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FaLink, FaMailBulk, FaPersonBooth } from "react-icons/fa";
 import dynamic from "next/dynamic";
@@ -9,15 +9,8 @@ const WorkersPage = dynamic(() => import("./pages/workers"));
 const LinksPage = dynamic(() => import("./pages/links"));
 const MailingPage = dynamic(() => import("./pages/mailing"));
 
-const useStyles = createStyles((theme) => ({
-  body: {
-    padding: 10,
-  },
-}));
-
 const AdminPage = () => {
   const [page, setPage] = useState<string | null>("Workers");
-  const { classes } = useStyles();
 
   const user = api.admin.loadData.useQuery();
   const [creatingComapny, setCreatingCompany] = useState(false);
@@ -31,11 +24,11 @@ const AdminPage = () => {
   const getDescription = (value: string): string => {
     switch (value) {
       case "Workers":
-        return "Spravuj svoje zaměstnance v jednoduchém seznamu.";
+        return "Spravujte vaše zaměstnance v jednoduchém seznamu.";
       case "Links":
-        return "Spravuj své příchozí a odchozí pozvánky";
+        return "Spravujte své příchozí a odchozí pozvánky";
       case "Mailing":
-        return "Spravuj automatické maily pro zaměstnance";
+        return "Spravujte automatické maily pro zaměstnance";
     }
 
     return "";
@@ -55,7 +48,7 @@ const AdminPage = () => {
   };
 
   return (
-    <div className={classes.body}>
+    <Container className="pt-4">
       {creatingComapny && <AdminPageWelcome onSuccess={() => setCreatingCompany(false)} />}
       <Group display="block">
         <Title>{getTitle(page || "")}</Title>
@@ -87,7 +80,7 @@ const AdminPage = () => {
           <MailingPage />
         </Tabs.Panel>
       </Tabs>
-    </div>
+    </Container>
   );
 };
 

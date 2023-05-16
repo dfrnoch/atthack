@@ -1,5 +1,5 @@
-import { Flex, Title, Text, Button, Modal, NumberInput, Table } from "@mantine/core";
-import { DateTimePicker } from "@mantine/dates";
+import { Flex, Title, Button, Modal, TextInput, NumberInput, Table } from "@mantine/core";
+import { DatePickerInput, DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { api } from "~/utils/api";
@@ -33,9 +33,10 @@ const LinksPage = () => {
         </Button>
       </Flex>
 
-      <Modal opened={opened} onClose={close} title="Přidat pozvanku">
+      <Modal opened={opened} onClose={close} title="Přidat pozvánku">
         <NumberInput
           value={data.limit}
+          label="Limit požití"
           onChange={(value) => {
             setData({
               ...data,
@@ -45,12 +46,12 @@ const LinksPage = () => {
           min={1}
         />
 
-        <DateTimePicker
+        <DatePickerInput
           mt={10}
           label="Konec platnosti"
           value={data.expiresAt}
           onChange={(date) => setData({ ...data, expiresAt: new Date(date?.getTime() || 0) })}
-          placeholder="Vyber datum"
+          placeholder="Vyberte datum"
           mx="auto"
         />
 
@@ -70,44 +71,29 @@ const LinksPage = () => {
 
       {fetchInvites.isLoading && <Text>Loading...</Text>}
 
-      {fetchInvites.data?.length !== 0 ? (
-        <Table w={700} mt={20}>
-          <thead>
+      <tbody>
+        {fetchInvites.data?.map((el) => {
+          return (
             <tr>
-              <td>Kod</td>
-              <td>Pouziti</td>
-              <td>Vyprsi v</td>
-              <td>Akce</td>
+              <td>{el.id}</td>
+              <td>{el.used}</td>
+              <td>{el.expiresAt ? el.expiresAt.toLocaleDateString() : "Neznámý datum"}</td>
+              <td>
+                <Button
+                  color="red"
+                  variant="outline"
+                  loading={deleteInvite.isLoading}
+                  onClick={() => {
+                    deleteInvite.mutateAsync(el.id);
+                  }}
+                >
+                  Smazat
+                </Button>
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
-            {fetchInvites.data?.map((el) => {
-              return (
-                <tr>
-                  <td>{el.id}</td>
-                  <td>{el.used}</td>
-                  <td>{el.expiresAt ? el.expiresAt.toLocaleDateString() : "Datum nezadano"}</td>
-                  <td>
-                    <Button
-                      color="red"
-                      variant="outline"
-                      loading={deleteInvite.isLoading}
-                      onClick={() => {
-                        deleteInvite.mutateAsync(el.id);
-                      }}
-                    >
-                      Smazat
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      ) : (
-        <Text mt={14}>Nula nalezenych pozvanek</Text>
-      )}
+          );
+        })}
+      </tbody>
     </div>
   );
 };

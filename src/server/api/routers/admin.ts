@@ -11,7 +11,6 @@ export const adminRouter = createTRPCRouter({
     });
 
     const completedRegistration = !!company;
-    console.log("completedRegistration", completedRegistration);
 
     return { completedRegistration };
   }),
@@ -19,7 +18,6 @@ export const adminRouter = createTRPCRouter({
   createCompany: protectedProcedure.input(z.string()).mutation(async ({ input, ctx }) => {
     const company = await ctx.prisma.company.create({
       data: {
-        phishingEmailFrequencyDays: 7,
         adminId: ctx.session.user.id,
         name: input,
       },
