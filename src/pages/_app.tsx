@@ -5,6 +5,7 @@ import { type Session } from "next-auth";
 
 import "../styles/globals.css";
 import { createEmotionCache, MantineProvider, Navbar } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 // Do this to prevent mantine clashing with tailwind.
 const myCache = createEmotionCache({ key: "mantine", prepend: false });
@@ -21,6 +22,7 @@ const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { s
           // TODO: Change colors.
         }}
       >
+        <Notifications/>
         <Component {...pageProps} />
       </MantineProvider>
     </SessionProvider>

@@ -1,4 +1,4 @@
-import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title, MultiSelect, Box } from "@mantine/core";
+import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title, MultiSelect, Box, Paper } from "@mantine/core";
 import WorkerGroupCard from "../../../adminDashboard/WorkerGroupCard";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
@@ -35,7 +35,7 @@ const WorkersPage = () => {
           <Flex gap={15} direction="row">
             <Title size="h3">Skupiny zaměstanců</Title>
 
-            <Button onClick={open} variant="filled">
+            <Button onClick={open} variant="outline">
               Přidat
             </Button>
           </Flex>
@@ -61,20 +61,22 @@ const WorkersPage = () => {
             </Button>
           </Modal>
 
-          <Flex direction="row" wrap="wrap" gap={18} mt={20}>
-            {workers.data?.map((el) => {
-              return (
-                <WorkerGroupCard
-                  workerCount={el.workers}
-                  createdAt={el.createdAt}
-                  color={el.color}
-                  category="Nic"
-                  title={el.name}
-                  onClick={() => setSelectedGroup(el)}
-                />
-              );
-            })}
-          </Flex>
+          <Paper p={15} variant="outlined" withBorder mt={20}>
+            <Flex direction="row" wrap="wrap" gap={18}>
+              {workers.data?.map((el) => {
+                return (
+                  <WorkerGroupCard
+                    workerCount={el.workers}
+                    createdAt={el.createdAt}
+                    color={el.color}
+                    category="Nic"
+                    title={el.name}
+                    onClick={() => setSelectedGroup(el)}
+                  />
+                );
+              })}
+            </Flex>
+          </Paper>
         </>
       ) : (
         <>

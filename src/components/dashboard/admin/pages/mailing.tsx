@@ -1,14 +1,18 @@
 import { Button, Checkbox, Paper, Select, Text } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { useState } from "react";
 import { api } from "~/utils/api";
 
 const MailingPage = () => {
   const internetData = api.company.getEmailFrequency.useQuery();
-  const mutateData = api.company.setEmailFrequency.useMutation();
-  const [data, setData] = useState({
-    phishingEmailFrequencyDays: 0,
-    lastPhishingEmailSendTime: new Date(),
-    ...internetData.data
+  const [data, setData] = useState(internetData.data?.phishingEmailFrequencyDays);
+  const mutateData = api.company.setEmailFrequency.useMutation({
+    onSuccess: () => {
+      showNotification({
+        title: "Mailing",
+        message: "Uspesne jste upravili mailing"
+      });
+    }
   });
 
   return (
@@ -16,32 +20,23 @@ const MailingPage = () => {
       <Checkbox 
         label="Chcete zaměstnancům zasílat pravidelné emaily?" 
         size="lg"
-        checked={data.phishingEmailFrequencyDays !== 0} 
+        checked={data !== 0} 
         onChange={(e) => {
-          if(data.phishingEmailFrequencyDays === 0) {
-            setData({
-              ...data,
-              phishingEmailFrequencyDays: 7
-            });
+          if(data === 0) {
+            setData(7);
           } else {
-            setData({
-              ...data,
-              phishingEmailFrequencyDays: 0
-            });
+            setData(0);
           }
         }}
       />
 
       <Select
-        disabled={data.phishingEmailFrequencyDays === 0}
+        disabled={data === 0}
         mt={13}
         label="Jak často posílat maily?"
-        value={data.phishingEmailFrequencyDays.toString()}
+        value={data?.toString()}
         onChange={(value) => {
-          setData({
-            ...data,
-            phishingEmailFrequencyDays: parseInt(value || "0")
-          })
+          setData(parseInt(value || "0"));
         }}
         data={[
           { value: "7", label: "Týdně" },
@@ -51,10 +46,9 @@ const MailingPage = () => {
 
       <Button 
         onClick={() => {
-          mutateData.mutateAsync(data.phishingEmailFrequencyDays);
+          mutateData.mutateAsync(data || 0);
         }}
         loading={mutateData.isLoading}
-        disabled={data.phishingEmailFrequencyDays === 0} 
         mt={15}
       >
         Upravit

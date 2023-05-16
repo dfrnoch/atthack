@@ -1,6 +1,7 @@
 import { Flex, Title, Text, Button, Modal, NumberInput, Table } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
+import { notifications, showNotification } from "@mantine/notifications";
 import { useState } from "react";
 import { api } from "~/utils/api";
 
@@ -8,6 +9,11 @@ const LinksPage = () => {
   const fetchInvites = api.invite.listInvites.useQuery();
   const deleteInvite = api.invite.removeInvite.useMutation({
     onSuccess: () => {
+      notifications.show({
+        title: 'Pozvanky',
+        message: 'Uspesne jste smazali poznamku!',
+      });
+
       fetchInvites.refetch();
     },
   });
@@ -15,6 +21,11 @@ const LinksPage = () => {
     onSuccess: () => {
       fetchInvites.refetch();
       close();
+
+      notifications.show({
+        title: 'Poznamky',
+        message: 'Uspesne jste vytvorili poznamku!',
+      })
     },
   });
   const [opened, { open, close }] = useDisclosure();

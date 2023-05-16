@@ -27,9 +27,7 @@ export const companyRouter = createTRPCRouter({
     .query(async ({ ctx }) => {
       return await ctx.prisma.userDetails.findMany({
         where: {
-          Company: {
-            adminId: ctx.session.user.id
-          }
+          userId: ctx.session.user.id
         },
         select: {
           User: true
