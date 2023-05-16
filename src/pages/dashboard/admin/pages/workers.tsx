@@ -1,118 +1,38 @@
-import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title, Table, Checkbox, rem } from "@mantine/core";
+import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title } from "@mantine/core";
 import WorkerGroupCard from "../../../../components/adminDashboard/WorkerGroupCard";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
 
-const Groups = ({ onSelect }: { onSelect: () => void }) => {
+const WorkersPage = () => {
   const [modalOpened, { open, close }] = useDisclosure();
 
   return (
     <div>
       <Flex gap={15} direction="row">
-        <Title size="h3">Skupiny zamestancu</Title>
+        <Title size="h3">Skupiny zaměstanců</Title>
 
         <Button onClick={open} variant="filled">
-          Pridat
+          Přidat
         </Button>
       </Flex>
 
-      <Modal opened={modalOpened} onClose={close} title="Pridat skupinu">
-        <TextInput withAsterisk label="Nazev skupiny" placeholder="Zadej..." />
+      <Modal opened={modalOpened} onClose={close} title="Přidat skupinu">
+        <TextInput withAsterisk label="Název skupiny" placeholder="Zadej..." />
 
-        <Text mt={10} mb={5} size={"sm"}>
-          Barva
-        </Text>
-        <ColorPicker />
+        <Text mt={10} mb={5} size={"sm"}>Barva</Text>
+        <ColorPicker/>
 
-        <Button mt={15}>Pridat</Button>
+        <Button mt={15}>Přidat</Button>
       </Modal>
 
-      <Flex direction="row" wrap="wrap" gap={18} mt={20}>
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-      </Flex>
+      <WorkerGroupCard
+        workerCount={20}
+        createdAt={new Date()}
+        color="green"
+        category="fdklfjd"
+        title="flkdjflksd fjsldk f"
+      />
     </div>
   );
-};
-
-const Users = () => {
-  return (
-    <Table miw={800} verticalSpacing="sm">
-      <thead>
-        <tr>
-          <th style={{ width: rem(40) }}>
-            <Checkbox
-
-            />
-          </th>
-          <th>User</th>
-          <th>Email</th>
-          <th>Job</th>
-          <th>Akce</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-            <td><Checkbox/></td>
-            <td>sdflkjsdf</td>
-            <td>sdflkjsdf</td>
-            <td>sdflkjsdf</td>
-            <td>
-                <Button color="red" variant="outline">Smazat</Button>
-                <Button className="ml-2" color="blue" variant="outline">Upravit</Button>
-            </td>
-        </tr>
-      </tbody>
-    </Table>
-  );
-};
-
-const WorkersPage = () => {
-  const [page, setPage] = useState<"GROUP" | "USERS">("GROUP");
-
-  if (page === "GROUP") {
-    return <Groups onSelect={() => setPage("USERS")} />;
-  } else {
-    return <Users />;
-  }
 };
 
 export default WorkersPage;
