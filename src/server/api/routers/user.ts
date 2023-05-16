@@ -15,4 +15,15 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       return "";
     }),
+
+  getRole: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.user.findUnique({
+      where: {
+        id: ctx.session.user.id,
+      },
+      select: {
+        role: true,
+      },
+    });
+  }),
 });

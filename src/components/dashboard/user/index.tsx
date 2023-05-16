@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import SideBar from "../../../components/SideBar";
+import SideBar from "../../SideBar";
 import { api } from "../../../utils/api";
 import { useEffect } from "react";
 import { Grid } from "@mantine/core";
@@ -11,7 +11,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (data && !data.completedRegistration) {
-      router.push("/domu/vitejte");
+      router.push("/dashboard/user/vitejte");
     }
   }, [data, router]);
 
@@ -21,7 +21,6 @@ const HomePage = () => {
 
       <Grid>
         <Grid.Col span={4}>sfdljk</Grid.Col>
-
 
         <Grid.Col span={8}>sfdjlkfdsjlk</Grid.Col>
       </Grid>
