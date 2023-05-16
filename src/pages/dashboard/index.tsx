@@ -1,13 +1,25 @@
-import { Container, TextInput } from "@mantine/core";
+import { Container } from "@mantine/core";
+import { Role } from "@prisma/client";
+
+import dynamic from "next/dynamic";
+import { api } from "~/utils/api";
+
+// Lazy load the components
+const UserDashboard = dynamic(() => import("~/components/dashboard/user"));
+const AdminDashboard = dynamic(() => import("~/components/dashboard/admin"));
 
 const Dashboard = () => {
-  return (
-    <Container>
-      <h1>Zpravovat Organizace, Pripojit se do organizace</h1>
+  const userRole = api.user.getRole.useQuery();
 
-      <TextInput label="ID organizace" placeholder="ID organizace" />
-    </Container>
-  );
+  if (userRole.data) {
+    if (userRole.data.role === Role.USER) {
+      return <UserDashboard />;
+    } else if (userRole.data.role === Role.ADMIN) {
+      return <AdminDashboard />;
+    }
+  }
+
+  return <Container>Loading</Container>;
 };
 
 export default Dashboard;

@@ -12,8 +12,9 @@ import {
   rem,
   Accordion,
 } from "@mantine/core";
-import { FaCheck, FaLock } from "react-icons/fa";
-import { signIn } from "next-auth/react";
+import { FaCheck, FaLock, FaUnlock } from "react-icons/fa";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -84,6 +85,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Homepage = () => {
+  const session = useSession();
+  const router = useRouter();
   const { classes } = useStyles();
 
   return (
@@ -134,15 +137,27 @@ const Homepage = () => {
               </List>
 
               <Group mt={30}>
-                <Button
-                  radius="xl"
-                  size="md"
-                  onClick={() => signIn()}
-                  leftIcon={<FaLock />}
-                  className={classes.control}
-                >
-                  Přihlásit se
-                </Button>
+                {(session.status !== "authenticated" && (
+                  <Button
+                    radius="xl"
+                    size="md"
+                    onClick={() => signIn()}
+                    leftIcon={<FaLock />}
+                    className={classes.control}
+                  >
+                    Přihlásit se
+                  </Button>
+                )) || (
+                  <Button
+                    radius="xl"
+                    size="md"
+                    onClick={() => router.push("/dashboard")}
+                    leftIcon={<FaUnlock />}
+                    className={classes.control}
+                  >
+                    Přejít do dashboardu
+                  </Button>
+                )}
               </Group>
             </div>
             <Image src="assets/image.svg" />

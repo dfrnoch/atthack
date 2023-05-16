@@ -1,5 +1,5 @@
 import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title } from "@mantine/core";
-import WorkerGroupCard from "../../../../components/adminDashboard/WorkerGroupCard";
+import WorkerGroupCard from "../../../adminDashboard/WorkerGroupCard";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { api } from "~/utils/api";
