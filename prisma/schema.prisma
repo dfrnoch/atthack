@@ -127,7 +127,7 @@ model Company {
   UserDetails                UserDetails[]
   CompanyWorkers             CompanyWorkerGroup[]
   phishingEmailFrequencyDays Int // 0 = disabled
-  lastPhishingEmailSendTime  DateTime?            @default(now())
+  lastPhishingEmailSendTime  DateTime?
 }
 
 model CompanyWorkerGroup {
