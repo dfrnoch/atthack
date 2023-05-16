@@ -9,5 +9,3 @@ export default function ExerciseContainer(props: PropsWithChildren<{title: strin
         </div>
     )
 }
-
-// Na title použij <Title
