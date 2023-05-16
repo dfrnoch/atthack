@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import { api } from "../utils/api";
 
 const Protected: NextPage = () => {
-  const data = api.exercise.loadData.useQuery();
+  // const data = api.exercise.loadData.useQuery();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
@@ -13,7 +13,7 @@ const Protected: NextPage = () => {
           Welcome to the <span className="text-[hsl(280,100%,70%)]">Protected</span> Page
         </h1>
         <p className="text-2xl text-white">Click this User Button!</p>
-        data: {JSON.stringify(data.data)}
+        {/* data: {JSON.stringify(data.data)} */}
         <UserButton afterSignOutUrl="/" />
       </div>
     </main>

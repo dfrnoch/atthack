@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-    id        Int     @unique
+    clerkId   String  @unique
     age       Int
     gender    Gender
     hobbies   String

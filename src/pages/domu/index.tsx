@@ -1,21 +1,21 @@
-import { useRouter } from 'next/router';
-import SideBar from '../../components/SideBar';
-import { api } from '../../utils/api';
-import { useEffect } from 'react';
+import { useRouter } from "next/router";
+import SideBar from "../../components/SideBar";
+import { api } from "../../utils/api";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const router = useRouter();
-  const { error } = api.exercise.loadData.useQuery();
+  const { data } = api.home.loadData.useQuery();
 
   useEffect(() => {
-    if (error) {
+    if (!data?.completedRegistration) {
       router.push("/domu/vitejte");
     }
-  }, [error, router]);
+  }, [data, router]);
 
   return (
     <div>
-      <SideBar/>
+      <SideBar />
     </div>
   );
 };
