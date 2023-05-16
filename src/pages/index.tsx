@@ -130,7 +130,7 @@ const Homepage = () => {
                 <Button 
                   radius="xl" 
                   size="md" 
-                  onClick={() => Router.push("/signin")}
+                  onClick={() => Router.push("/prihlaseni")}
                   leftIcon={<FaLock />} 
                   className={classes.control}
                 >
@@ -138,7 +138,7 @@ const Homepage = () => {
                 </Button>
               </Group>
             </div>
-            <Image src="assets/image.svg"></Image>
+            <Image src="assets/image.svg"/>
           </div>
         </Container>
 
