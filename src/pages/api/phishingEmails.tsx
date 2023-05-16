@@ -5,7 +5,7 @@ const phishingEmails = [
 Vaše verze Windows je zastaralá. Prosím aktualizujte systém na nejnovější verzi.
 Pokud tento email čtete, je nutné ihned aktualizovat systém. V opačném případě může dojít k zablokování vašeho účtu.
 Klikněte na tento odkaz pro aktualizaci: <a href="{target_link}" style="word-wrap: break-word;">{target_link}</a>
-Děkujeme za pochopení,
+Děkujeme za pochopení.
 IT oddělení`
     },
     {
