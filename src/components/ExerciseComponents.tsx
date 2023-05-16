@@ -1,9 +1,13 @@
 import {PropsWithChildren} from "react";
 import {Title} from "@mantine/core";
 
+
+/**
+ * Exercise container.
+* */
 function Exercise(props: PropsWithChildren<{}>) {
     return (
-        <div className={"bg-gray-800 rounded-lg shadow-lg p-4"}>
+        <div className={""}>
             {props.children}
         </div>
     )
@@ -11,7 +15,7 @@ function Exercise(props: PropsWithChildren<{}>) {
 
 function ExerciseTitle(props: PropsWithChildren<{}>) {
     return (
-        <Title>
+        <Title size={"h2"} className={"pb-4"}>
             {props.children}
         </Title>
     )
@@ -19,12 +23,24 @@ function ExerciseTitle(props: PropsWithChildren<{}>) {
 
 function Description(props: PropsWithChildren<{}>) {
     return (
-        <p>
+        <div className={"text-neutral-400"}>
             {props.children}
-        </p>
+        </div>
+    )
+}
+
+/**
+ * A span that highlights the text inside it. Use to highlight important words.
+* */
+function Highlighted(props: PropsWithChildren<{}>) {
+    return (
+        <span className={"text-blue-300"}>
+            {props.children}
+        </span>
     )
 }
 
 Exercise.Title = ExerciseTitle;
 Exercise.Description = Description;
+Exercise.Highlighted = Highlighted;
 export default Exercise;
