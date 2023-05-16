@@ -1,10 +1,10 @@
-import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title, Table, Checkbox, rem } from "@mantine/core";
+import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title } from "@mantine/core";
 import WorkerGroupCard from "../../../../components/adminDashboard/WorkerGroupCard";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { api } from "~/utils/api";
 
-const Groups = ({ onSelect }: { onSelect: () => void }) => {
+const WorkersPage = () => {
   const [modalOpened, { open, close }] = useDisclosure();
   const createGroup = api.company.addWorkerGroup.useMutation({
     onSuccess: () => {
@@ -19,10 +19,10 @@ const Groups = ({ onSelect }: { onSelect: () => void }) => {
   return (
     <div>
       <Flex gap={15} direction="row">
-        <Title size="h3">Skupiny zamestancu</Title>
+        <Title size="h3">Skupiny zaměstanců</Title>
 
         <Button onClick={open} variant="filled">
-          Pridat
+          Přidat
         </Button>
       </Flex>
 
@@ -52,92 +52,16 @@ const Groups = ({ onSelect }: { onSelect: () => void }) => {
         </Button>
       </Modal>
 
-      <Flex direction="row" wrap="wrap" gap={18} mt={20}>
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-        <WorkerGroupCard
-          onClick={onSelect}
-          workerCount={20}
-          createdAt={new Date()}
-          color="green"
-          category="fdklfjd"
-          title="flkdjflksd fjsldk f"
-        />
-      </Flex>
+      <WorkerGroupCard
+              workerCount={20}
+              createdAt={new Date()}
+              color="green"
+              category="fdklfjd"
+              title="flkdjflksd fjsldk f" onClick={function (): void {
+                  throw new Error("Function not implemented.");
+              } }      />
     </div>
   );
-};
-
-const Users = () => {
-  return (
-    <Table miw={800} verticalSpacing="sm">
-      <thead>
-        <tr>
-          <th style={{ width: rem(40) }}>
-            <Checkbox
-
-            />
-          </th>
-          <th>User</th>
-          <th>Email</th>
-          <th>Job</th>
-          <th>Akce</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-            <td><Checkbox/></td>
-            <td>sdflkjsdf</td>
-            <td>sdflkjsdf</td>
-            <td>sdflkjsdf</td>
-            <td>
-                <Button color="red" variant="outline">Smazat</Button>
-                <Button className="ml-2" color="blue" variant="outline">Upravit</Button>
-            </td>
-        </tr>
-      </tbody>
-    </Table>
-  );
-};
-
-const WorkersPage = () => {
-  const [page, setPage] = useState<"GROUP" | "USERS">("GROUP");
-
-  if (page === "GROUP") {
-    return <Groups onSelect={() => setPage("USERS")} />;
-  } else {
-    return <Users />;
-  }
 };
 
 export default WorkersPage;

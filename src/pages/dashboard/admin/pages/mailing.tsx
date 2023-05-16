@@ -3,14 +3,14 @@ import { Button, Checkbox, Paper, Select, Text } from "@mantine/core";
 const MailingPage = () => {
   return (
     <Paper withBorder shadow="xs" p="md">
-      <Checkbox label="Chcete zamestnancum zasilat pravidelne emaily?" size="lg" />
+      <Checkbox label="Chcete zaměstnancům zasílat pravidelné emaily?" size="lg" />
 
       <Select
         mt={13}
-        label="Jak casto posilat maily?"
+        label="Jak často posílat maily?"
         data={[
-          { value: "week", label: "Tydne" },
-          { value: "month", label: "Mesicne" }
+          { value: "week", label: "Týdně" },
+          { value: "month", label: "Měsíčně" }
         ]}
       />
 
