@@ -15,9 +15,9 @@ function Exercise(props: PropsWithChildren<{}>) {
 
 function ExerciseTitle(props: PropsWithChildren<{}>) {
     return (
-        <Title size={"h2"} className={"pb-4"}>
+        <h2 className={"mb-4 text-2xl mx-auto"}>
             {props.children}
-        </Title>
+        </h2>
     )
 }
 
