@@ -11,7 +11,7 @@ export default function ({json, exercise}:{json:any, exercise?:any}) {
         const Button = ({children}) => {
             return <button disabled={done+2<parseInt(children)}
                            className={"disabled:opacity-30 w-20 h-20 rounded-full text-black text-2xl font-extrabold shadow-inner my-5 hover:bg-emerald-400 transition-all duration-300 ease-in-out "
-                               + (done+1>=parseInt(children) ?" bg-emerald-400":" bg-gray-100") + posSwitcher(parseInt(children-1))} onClick={()=>{
+                               + (done+1>=parseInt(children) ?" bg-emerald-400":" bg-gray-100") + posSwitcher(parseInt(children)-1)} onClick={()=>{
                 setIndex(parseInt(children) - 1)
                 setActive(true)}
             }>{children}</button>
