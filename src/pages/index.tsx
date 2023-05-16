@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             </Link>
           </div>
           <p className="text-2xl text-white">{hello.data ? hello.data.greeting : "Loading tRPC query..."}</p>
-          <Link href="/src/pages/protected" className="text-xl text-white">
+          <Link href="protected" className="text-xl text-white">
             Check out a protected procedure
           </Link>
         </div>
