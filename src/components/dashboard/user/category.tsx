@@ -22,37 +22,37 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface CategoryProps {
+export type Category = {
   image: string;
   title: string;
   description: string;
   status: "COMPLETED" | "IN_PROGRESS" | "UNCOMPLETED";
-}
+};
 
-const Category = ({ image, title, description, status }: CategoryProps) => {
+const CategoryItem = ({ image, title, description, status }: Category) => {
   const { classes } = useStyles();
 
   const statusBadge = () => {
     switch (status) {
       case "COMPLETED":
-        return <Badge color="green">Completed</Badge>;
+        return <Badge color="green">Dokončené</Badge>;
 
       case "IN_PROGRESS":
-        return <Badge color="yellow">In progress</Badge>;
+        return <Badge color="yellow">V procesu</Badge>;
 
       case "UNCOMPLETED":
-        return <Badge color="red">Uncompleted</Badge>;
+        return <Badge color="red">Uzamčené</Badge>;
     }
   };
 
   return (
     <Card mb={15} mt={10} withBorder radius="md" p={0} className={classes.card}>
       <Group noWrap spacing={0}>
-        <Image src={image} height={140} width={140} />
+        <Image src={image} height={120} width={140} />
         <div className={classes.body}>
           {statusBadge()}
 
-          <Text className={classes.title} size={"lg"} mt="xs" mb="md">
+          <Text className={classes.title} size={"lg"} mt="xs">
             {title}
           </Text>
 
@@ -65,4 +65,4 @@ const Category = ({ image, title, description, status }: CategoryProps) => {
   );
 };
 
-export default Category;
+export default CategoryItem;
