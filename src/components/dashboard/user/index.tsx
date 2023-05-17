@@ -58,8 +58,8 @@ const HomePage = () => {
         </div>
 
         <div className="col-span-4 justify-end ">
-          <Title className="text-2xl">Kategorie {categoryInfo.data?.category?.name}</Title>
-          <div className="text-xl line-clamp-3">{categoryInfo.data?.category?.description}</div>
+          <Title className="text-2xl flex flex-row items-center gap-4">Kategorie {categoryInfo.data?.category?.name ?? <Skeleton className={"rounded-lg"} width={230} height={45} />}</Title>
+          <div className="text-xl line-clamp-3">{categoryInfo.data?.category?.description ?? <Skeleton className={"rounded-lg pt-4 mt-4"} width={320} height={22} />}</div>
 
           {categoryInfo.data?.category?.id === 2 ? (
             <PasswordCrack />
