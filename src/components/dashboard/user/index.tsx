@@ -73,7 +73,7 @@ const HomePage = () => {
               completed={
                 categoryInfo.data.completedExercises?.completedExercises.map((e) => e.id).includes(exercise.id) || false
               }
-              name={"Bezpečnost na e-mailu " + (index + 1)}
+              name={`Bezpečnost na e-mailu ${(index + 1)}`}
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
               onClick={() => {
                 //check if the exercise is not completed
