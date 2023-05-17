@@ -96,7 +96,10 @@ const HomePage = () => {
         </div>
       </div>
       <Modal size={"xl"} opened={opened} onClose={close} centered>
-        <Popup cat={popupData.cat} pos={popupData.pos} />
+        <Popup cat={popupData.cat} pos={popupData.pos} onCompleted={() => {
+            close();
+
+        }} />
       </Modal>
     </div>
   );

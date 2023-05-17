@@ -1,14 +1,15 @@
-import dynamic from "next/dynamic";
+import EmailExercise1 from "~/components/categories/email-security/1";
+import {api} from "~/utils/api";
 
 const exerciseList = [
   [
-    dynamic(() => import("~/components/categories/email-security/1")),
+    ((onCompleted: () => void) => <EmailExercise1 onCompleted={onCompleted}/>)
   ],
 ];
 
-export default function Popup({ cat, pos }: { cat: number; pos: number }) {
+export default function Popup({ cat, pos, onCompleted }: { cat: number; pos: number, onCompleted?: () => void }) {
   // @ts-ignore
-  const Component = exerciseList[cat - 1][pos - 1];
+  const Component = exerciseList[cat - 1][pos - 1](onCompleted);
 
-  return <>{Component && <Component />}</>;
+  return <>{Component && Component}</>;
 }
