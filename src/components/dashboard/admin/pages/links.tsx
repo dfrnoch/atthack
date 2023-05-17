@@ -1,7 +1,7 @@
 import { Flex, Title, Button, Modal, Text, NumberInput, Table } from "@mantine/core";
 import { DatePickerInput, DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
-import { notifications, showNotification } from "@mantine/notifications";
+import { notifications } from "@mantine/notifications";
 import { useState } from "react";
 import { api } from "~/utils/api";
 
@@ -10,8 +10,8 @@ const LinksPage = () => {
   const deleteInvite = api.invite.removeInvite.useMutation({
     onSuccess: () => {
       notifications.show({
-        title: 'Pozvanky',
-        message: 'Uspesne jste smazali poznamku!',
+        title: "Pozvánky",
+        message: "Úspěšně jste upravili pozvámku!",
       });
 
       fetchInvites.refetch();
@@ -23,9 +23,9 @@ const LinksPage = () => {
       close();
 
       notifications.show({
-        title: 'Poznamky',
-        message: 'Uspesne jste vytvorili poznamku!',
-      })
+        title: "Pozvanky",
+        message: "Úspěšně jste vytvořili pozvánku!",
+      });
     },
   });
   const [opened, { open, close }] = useDisclosure();
