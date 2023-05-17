@@ -30,7 +30,6 @@ const useStyles = createStyles((theme) => ({
 
 interface ArticleCardVerticalProps {
   color: string;
-  category: string;
   title: string;
   workerCount: number;
   createdAt: Date;
@@ -39,7 +38,6 @@ interface ArticleCardVerticalProps {
 
 const WorkerGroupCard = ({
   color,
-  category,
   title,
   workerCount, 
   createdAt,
@@ -55,17 +53,13 @@ const WorkerGroupCard = ({
         />
 
         <div className={classes.body}>
-          <Text transform="uppercase" color="dimmed" weight={700} size="xs">
-            {category}
-          </Text>
-
           <Text className={classes.title} mt="xs" mb="md">
             {title}
           </Text>
 
           <Group noWrap spacing="xs">
             <Group spacing="xs" noWrap>
-              <Text size="xs">{workerCount} workers</Text>
+              <Text size="xs">{workerCount} pracovniku</Text>
             </Group>
             <Text size="xs" color="dimmed">
               •

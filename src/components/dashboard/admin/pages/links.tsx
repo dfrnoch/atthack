@@ -45,6 +45,15 @@ const LinksPage = () => {
       </Flex>
 
       <Modal opened={opened} onClose={close} title="Přidat pozvánku">
+      <DatePickerInput
+          mt={10}
+          label="Konec platnosti"
+          value={data.expiresAt}
+          onChange={(date) => setData({ ...data, expiresAt: new Date(date?.getTime() || 0) })}
+          placeholder="Vyberte datum"
+          mx="auto"
+        />
+
         <NumberInput
           value={data.limit}
           label="Limit požití"
@@ -55,15 +64,6 @@ const LinksPage = () => {
             });
           }}
           min={1}
-        />
-
-        <DatePickerInput
-          mt={10}
-          label="Konec platnosti"
-          value={data.expiresAt}
-          onChange={(date) => setData({ ...data, expiresAt: new Date(date?.getTime() || 0) })}
-          placeholder="Vyberte datum"
-          mx="auto"
         />
 
         <Button
@@ -82,6 +82,16 @@ const LinksPage = () => {
 
       {fetchInvites.isLoading && <Text>Loading...</Text>}
 
+      <Table>
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Pouziti</td>
+            <td>Vyprsi za</td>
+            <td>Akce</td>
+          </tr>
+        </thead>
+         
       <tbody>
         {fetchInvites.data?.map((el) => {
           return (
@@ -105,6 +115,7 @@ const LinksPage = () => {
           );
         })}
       </tbody>
+      </Table>
     </div>
   );
 };
