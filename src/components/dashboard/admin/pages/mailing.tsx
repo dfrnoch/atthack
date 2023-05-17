@@ -10,19 +10,19 @@ const MailingPage = () => {
     onSuccess: () => {
       showNotification({
         title: "Mailing",
-        message: "Uspesne jste upravili mailing"
+        message: "Úspěšně jste upravili mailing",
       });
-    }
+    },
   });
 
   return (
     <Paper withBorder shadow="xs" p="md">
-      <Checkbox 
-        label="Chcete zaměstnancům zasílat pravidelné emaily?" 
+      <Checkbox
+        label="Chcete zaměstnancům zasílat pravidelné emaily?"
         size="lg"
-        checked={data !== 0} 
+        checked={data !== 0}
         onChange={(e) => {
-          if(data === 0) {
+          if (data === 0) {
             setData(7);
           } else {
             setData(0);
@@ -40,11 +40,11 @@ const MailingPage = () => {
         }}
         data={[
           { value: "7", label: "Týdně" },
-          { value: "30", label: "Měsíčně" }
+          { value: "30", label: "Měsíčně" },
         ]}
       />
 
-      <Button 
+      <Button
         onClick={() => {
           mutateData.mutateAsync(data || 0);
         }}

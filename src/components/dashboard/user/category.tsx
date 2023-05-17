@@ -17,10 +17,6 @@ const useStyles = createStyles((theme) => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     lineHeight: 1.2,
   },
-
-  body: {
-    padding: theme.spacing.md,
-  },
 }));
 
 const CategoryItem = ({ image, name, description, onClick }: Category & { onClick: () => void }) => {
@@ -41,16 +37,17 @@ const CategoryItem = ({ image, name, description, onClick }: Category & { onClic
 
   return (
     <Card mb={8} mt={10} withBorder radius="md" p={0} className={classes.card} onClick={onClick}>
-      <Group noWrap spacing={0}>
+      <Group noWrap spacing={0} p={0}>
         <Image src={image} height={120} width={140} />
-        <div className={classes.body}>
+        <div className="pl-4">
           {/* {statusBadge()} */}
 
-          <Text className={classes.title} size={"lg"} mt="xs">
+          <Text className={classes.title} size={"lg"} mb="xs">
             {name}
           </Text>
 
-          <Text color="dimmed" size="sm">
+          {/* limit to 2 linex */}
+          <Text color="dimmed" size="sm" className="line-clamp-2">
             {description}
           </Text>
         </div>

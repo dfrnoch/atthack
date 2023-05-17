@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import CategoryItem from "./category";
 import Popup from "./Popup";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal } from "@mantine/core";
+import { Modal, Title } from "@mantine/core";
+import { Leaderboard } from "~/components/Leaderboard";
 
 const HomePage = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const HomePage = () => {
   return (
     <div>
       <div className="grid grid-cols-8 gap-4 h-screen">
-        <div className="flex flex-col gap-4 col-span-2">
+        <div className="flex flex-col gap-4 col-span-2 overflow-y-scroll no-scrollbar">
           {data?.categories.map((category, index) => (
             <CategoryItem
               description={category.description}
@@ -40,10 +41,14 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className="col-span-4 bg-green-200">
-          {categoryInfo.data?.exercises.map((exercise, index) => (
+        <div className="col-span-4 ">
+          <Title className="text-2xl">Kategorie {categoryInfo.data?.name}</Title>
+          <div className="text-xl line-clamp-3">{categoryInfo.data?.description}</div>
+
+          {categoryInfo.data?.exercises.map((exercise) => (
             // rome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
             <div
+              key={exercise.id}
               className="flex flex-col gap-4"
               onClick={() => {
                 open();
@@ -56,7 +61,9 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-        <div className="col-span-2 bg-blue-200">Column 3</div>
+        <div className="col-span-2">
+          <Leaderboard />
+        </div>
       </div>
       <Modal size={"xl"} opened={opened} onClose={close} centered>
         <Popup cat={popupData.cat} pos={popupData.pos} />

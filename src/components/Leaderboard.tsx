@@ -16,8 +16,8 @@ const useStyles = createStyles((theme) => ({
 
   place: {
     fontWeight: 900,
-    fontSize: "23px"
-  }
+    fontSize: "23px",
+  },
 }));
 
 const LeaderboardPlaceItem = ({ user, place }: { user: User; place: number }) => {
@@ -49,16 +49,14 @@ const LeaderboardPlaceItem = ({ user, place }: { user: User; place: number }) =>
 export const Leaderboard = () => {
   const session = useSession();
 
-  return <div>
-    <Title size={20} mt={15}>Leaderboard</Title>
-    {[session.data?.user as User, session.data?.user as User,session.data?.user as User].map((el, index, arr) => {
-        return (
-            <LeaderboardPlaceItem 
-                user={el} 
-                place={index + 1} 
-                key={el.id}
-            />
-        )
-    })}
-  </div>;
+  return (
+    <div>
+      <Title size={20} mt={15}>
+        Žebříček kolegů
+      </Title>
+      {[session.data?.user as User, session.data?.user as User, session.data?.user as User].map((el, index, arr) => {
+        return <LeaderboardPlaceItem user={el} place={index + 1} key={el.id} />;
+      })}
+    </div>
+  );
 };
