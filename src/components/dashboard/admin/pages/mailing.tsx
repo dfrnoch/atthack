@@ -34,7 +34,7 @@ const MailingPage = () => {
       <Select
         disabled={data === 0}
         mt={13}
-        label="Jak často posílat maily?"
+        label="Jak často máme zasílat maily?"
         value={data?.toString()}
         onChange={(value) => {
           setData(parseInt(value || "0"));
@@ -55,12 +55,17 @@ const MailingPage = () => {
         Upravit
       </Button>
 
-      <Divider mt={10} mb={10}/>
+      <Divider mt={10} mb={10} />
 
-      <Text>Odeslani testovaciho phishing mailu</Text>
-      <Button onClick={() => {
-        insane.mutateAsync();
-      }} loading={insane.isLoading}>Odeslat</Button>
+      <Text>Testování phishing emailů</Text>
+      <Button
+        onClick={() => {
+          insane.mutateAsync();
+        }}
+        loading={insane.isLoading}
+      >
+        Odeslat testovací email
+      </Button>
     </Paper>
   );
 };

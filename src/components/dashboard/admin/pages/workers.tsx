@@ -46,7 +46,7 @@ const WorkersPage = () => {
       {!selectedGroup ? (
         <>
           <Flex gap={15} direction="row">
-            <Title size="h3">Skupiny zaměstanců</Title>
+            <Title size="h3">Skupiny zaměstnanců</Title>
 
             <Button onClick={open} variant="outline">
               Přidat
@@ -59,7 +59,7 @@ const WorkersPage = () => {
               onChange={(e) => setCreateGroupData({ ...createGroupData, name: e.target.value })}
               withAsterisk
               label="Nazev skupiny"
-              placeholder="Zadej..."
+              placeholder="Zadejte..."
             />
 
             <Text mt={10} mb={5} size={"sm"}>
@@ -111,21 +111,23 @@ const WorkersPage = () => {
             <thead>
               <tr>
                 <td>ID</td>
-                <td>Jmeno</td>
+                <td>Jméno</td>
                 <td>Role</td>
               </tr>
             </thead>
 
             <tbody>
               {workers.data?.workers.map((el) => {
-                  return (
-                    <tr>
-                      <td>{el.id}</td>
-                      <td>{el.User.name}</td>
-                      <td><Badge>{el.User.role}</Badge></td>
-                    </tr>
-                  );
-                })}
+                return (
+                  <tr>
+                    <td>{el.id}</td>
+                    <td>{el.User.name}</td>
+                    <td>
+                      <Badge>{el.User.role}</Badge>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </>
