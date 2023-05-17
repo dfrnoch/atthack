@@ -1,15 +1,15 @@
-import { createStyles, Card, Text, Group } from '@mantine/core';
+import { createStyles, Card, Text, Group } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+    backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     width: 430,
     transition: "ease-in-out",
     transitionDuration: "0.15s",
-    ':hover': {
-      cursor: 'pointer',
-      opacity: "80%"
-    }
+    ":hover": {
+      cursor: "pointer",
+      opacity: "80%",
+    },
   },
 
   title: {
@@ -19,13 +19,13 @@ const useStyles = createStyles((theme) => ({
   },
 
   body: {
-    padding: theme.spacing.md
+    padding: theme.spacing.md,
   },
 
   placeholder: {
     height: "140px",
-    width: "140px"
-  }
+    width: "140px",
+  },
 }));
 
 interface ArticleCardVerticalProps {
@@ -36,21 +36,12 @@ interface ArticleCardVerticalProps {
   onClick: () => void;
 }
 
-const WorkerGroupCard = ({
-  color,
-  title,
-  workerCount, 
-  createdAt,
-  onClick
-}: ArticleCardVerticalProps) => {
+const WorkerGroupCard = ({ color, title, workerCount, createdAt, onClick }: ArticleCardVerticalProps) => {
   const { classes } = useStyles();
   return (
     <Card onClick={onClick} withBorder radius="md" p={0} className={classes.card}>
       <Group noWrap spacing={0}>
-        <div 
-            style={{ backgroundColor: color }} 
-            className={classes.placeholder}
-        />
+        <div style={{ backgroundColor: color }} className={classes.placeholder} />
 
         <div className={classes.body}>
           <Text className={classes.title} mt="xs" mb="md">
@@ -59,7 +50,7 @@ const WorkerGroupCard = ({
 
           <Group noWrap spacing="xs">
             <Group spacing="xs" noWrap>
-              <Text size="xs">{workerCount} pracovniku</Text>
+              <Text size="xs">{workerCount} uživatel</Text>
             </Group>
             <Text size="xs" color="dimmed">
               •
@@ -72,6 +63,6 @@ const WorkerGroupCard = ({
       </Group>
     </Card>
   );
-}
+};
 
 export default WorkerGroupCard;

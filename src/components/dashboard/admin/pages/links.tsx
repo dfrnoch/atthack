@@ -31,8 +31,8 @@ const LinksPage = () => {
   });
   const [opened, { open, close }] = useDisclosure();
   const [data, setData] = useState({
-    limit: 0,
-    expiresAt: new Date(),
+    limit: 20,
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
   });
 
   return (
@@ -57,11 +57,11 @@ const LinksPage = () => {
 
         <NumberInput
           value={data.limit}
-          label="Limit požití"
+          label="Limit použití"
           onChange={(value) => {
             setData({
               ...data,
-              limit: value || 0,
+              limit: value || 20,
             });
           }}
           min={1}
