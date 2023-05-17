@@ -73,7 +73,7 @@ const HomePage = () => {
                 onClick={() => {
                   if (
                     completedExercises.includes(exercise.id) ||
-                    completedExercises.length > exercise.categoryPosition + 1
+                    exercise.categoryPosition > completedExercises.length + 1
                   )
                     return notifications.show({ message: "Předchozí cvičení ještě nejsou dokončená" });
 
