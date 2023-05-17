@@ -1,30 +1,19 @@
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
 import { useEffect, useState } from "react";
-import CategoryItem, { Category } from "./category";
-import { Leaderboard } from "~/components/Leaderboard";
-
-const categories: Category[] = [
-  {
-    title: "Všechny",
-    description: "Všechny kategorie",
-    image:
-      "https://images.unsplash.com/photo-1621574539437-4b7b0b0b0b0b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0ZWdvcnl8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
-    status: "COMPLETED",
-  },
-  {
-    title: "Všechny",
-    description: "Všechny kategorie",
-    image:
-      "https://images.unsplash.com/photo-1621574539437-4b7b0b0b0b0b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0ZWdvcnl8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
-    status: "IN_PROGRESS",
-  },
-];
+import CategoryItem from "./category";
+import Popup from "./Popup";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
 
 const HomePage = () => {
   const router = useRouter();
 
   const [activeCategory, setActiveCategory] = useState(0);
+
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const [popupData, setPopupData] = useState({ cat: 0, pos: 0 });
 
   const { error, data } = api.home.loadData.useQuery();
 
@@ -38,19 +27,40 @@ const HomePage = () => {
     <div>
       <div className="grid grid-cols-8 gap-4 h-screen">
         <div className="flex flex-col gap-4 col-span-2">
-          {categories.map((category, index) => (
+          {data?.categories.map((category, index) => (
             <CategoryItem
               description={category.description}
+              id={category.id}
               image={category.image}
-              title={category.title}
-              status={category.status}
+              name={category.name}
+              onClick={() => {
+                setActiveCategory(category.id);
+              }}
             />
           ))}
         </div>
 
-        <div className="col-span-4 bg-green-200">{JSON.stringify(data)}</div>
-        <div className="col-span-2"><Leaderboard/></div>
+        <div className="col-span-4 bg-green-200">
+          {categoryInfo.data?.exercises.map((exercise, index) => (
+            // rome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+            <div
+              className="flex flex-col gap-4"
+              onClick={() => {
+                open();
+                setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
+              }}
+            >
+              <div className="flex flex-row justify-between">
+                <div className="text-2xl">{exercise.categoryPosition}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="col-span-2 bg-blue-200">Column 3</div>
       </div>
+      <Modal size={"xl"} opened={opened} onClose={close} centered>
+        <Popup cat={popupData.cat} pos={popupData.pos} />
+      </Modal>
     </div>
   );
 };

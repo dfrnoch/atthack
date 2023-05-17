@@ -1,4 +1,5 @@
 import { createStyles, Card, Image, Text, Group, Badge } from "@mantine/core";
+import { Category } from "@prisma/client";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -22,38 +23,31 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export type Category = {
-  image: string;
-  title: string;
-  description: string;
-  status: "COMPLETED" | "IN_PROGRESS" | "UNCOMPLETED";
-};
-
-const CategoryItem = ({ image, title, description, status }: Category) => {
+const CategoryItem = ({ image, name, description, onClick }: Category & { onClick: () => void }) => {
   const { classes } = useStyles();
 
-  const statusBadge = () => {
-    switch (status) {
-      case "COMPLETED":
-        return <Badge color="green">Dokončené</Badge>;
+  // const statusBadge = () => {
+  //   switch (status) {
+  //     case "COMPLETED":
+  //       return <Badge color="green">Dokončené</Badge>;
 
-      case "IN_PROGRESS":
-        return <Badge color="yellow">V procesu</Badge>;
+  //     case "IN_PROGRESS":
+  //       return <Badge color="yellow">V procesu</Badge>;
 
-      case "UNCOMPLETED":
-        return <Badge color="red">Uzamčené</Badge>;
-    }
-  };
+  //     case "UNCOMPLETED":
+  //       return <Badge color="red">Uzamčené</Badge>;
+  //   }
+  // };
 
   return (
-    <Card mb={8} mt={10} withBorder radius="md" p={0} className={classes.card}>
+    <Card mb={8} mt={10} withBorder radius="md" p={0} className={classes.card} onClick={onClick}>
       <Group noWrap spacing={0}>
         <Image src={image} height={120} width={140} />
         <div className={classes.body}>
-          {statusBadge()}
+          {/* {statusBadge()} */}
 
           <Text className={classes.title} size={"lg"} mt="xs">
-            {title}
+            {name}
           </Text>
 
           <Text color="dimmed" size="sm">

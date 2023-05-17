@@ -17,6 +17,8 @@ export const homeRouter = createTRPCRouter({
       select: {
         name: true,
         description: true,
+        id: true,
+        image: true,
       },
     });
 
