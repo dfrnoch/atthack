@@ -1,16 +1,15 @@
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CategoryItem from "./category";
 import Popup from "./Popup";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Title } from "@mantine/core";
 import { Leaderboard } from "~/components/Leaderboard";
 import LecturePoint from "./lecture/LecturePoint";
+import { notifications } from "@mantine/notifications";
 
 const HomePage = () => {
-  const router = useRouter();
-
   const [activeCategory, setActiveCategory] = useState(0);
 
   const [opened, { open, close }] = useDisclosure(false);
@@ -24,6 +23,19 @@ const HomePage = () => {
   useEffect(() => {
     categoryInfo.mutateAsync(activeCategory);
   }, [activeCategory]);
+
+  const completedExercises = useMemo(() => {
+    return categoryInfo.data?.completedExercises?.completedExercises.map((e) => e.id);
+  }, [categoryInfo.data?.completedExercises?.completedExercises]);
+
+  //get the position of the last completed exercise
+  const lastCompletedExercise = useMemo(() => {
+    if (completedExercises) {
+      return completedExercises.length;
+    } else {
+      return 0;
+    }
+  }, [completedExercises]);
 
   return (
     <div>
@@ -55,8 +67,17 @@ const HomePage = () => {
               name="Emaily a zprávy 1"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
               onClick={() => {
-                setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
-                open();
+                //check if the exercise is not completed
+                if (exercise.categoryPosition === lastCompletedExercise + 1) {
+                  setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
+                  open();
+                } else {
+                  notifications.show({
+                    title: "Nelze otevřít",
+                    message: "Nejprve musíte dokončit předchozí cvičení",
+                    color: "red",
+                  });
+                }
               }}
             />
           ))}
