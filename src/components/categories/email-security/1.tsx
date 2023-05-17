@@ -5,10 +5,9 @@ import {Button, Divider, MultiSelect, Title} from "@mantine/core";
 import {RxAvatar} from "react-icons/rx";
 
 export const id = "email-security-1";
-export default function EmailExercise1() {
+export default function EmailExercise1(onCompleted?: () => void) {
     function onCorrect() {
-        // TODO: Close the modal.
-        
+        if (typeof onCompleted === "function") onCompleted();
     }
 
     const {data} = {
@@ -62,7 +61,7 @@ Tým technické podpory
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
 function  ShownComponent(props: { data: any, onCorrect?: () => void }) {
     return (
-        <>
+        <div className={"fade-in"}>
             <InboxContent message={props.data?.content}
                           subject={props.data?.subject}
                           fromName={"Fio Bank Česko"}
@@ -78,7 +77,7 @@ function  ShownComponent(props: { data: any, onCorrect?: () => void }) {
                 clearable
             />
             <Button className={"max-w-lg ml-auto my-4"} onClick={props.onCorrect}>Vyhodnotit</Button>
-        </>
+        </div>
     )
 }
 

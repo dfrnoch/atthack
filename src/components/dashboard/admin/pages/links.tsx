@@ -3,6 +3,7 @@ import { DatePickerInput, DateTimePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useState } from "react";
+import { FaClipboard } from "react-icons/fa";
 import { api } from "~/utils/api";
 
 const LinksPage = () => {
@@ -45,7 +46,7 @@ const LinksPage = () => {
       </Flex>
 
       <Modal opened={opened} onClose={close} title="Přidat pozvánku">
-      <DatePickerInput
+        <DatePickerInput
           mt={10}
           label="Konec platnosti"
           value={data.expiresAt}
@@ -91,30 +92,42 @@ const LinksPage = () => {
             <td>Akce</td>
           </tr>
         </thead>
-         
-      <tbody>
-        {fetchInvites.data?.map((el) => {
-          return (
-            <tr>
-              <td>{el.id}</td>
-              <td>{el.used}</td>
-              <td>{el.expiresAt ? el.expiresAt.toLocaleDateString() : "Neznámý datum"}</td>
-              <td>
-                <Button
-                  color="red"
-                  variant="outline"
-                  loading={deleteInvite.isLoading}
-                  onClick={() => {
-                    deleteInvite.mutateAsync(el.id);
-                  }}
-                >
-                  Smazat
-                </Button>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
+
+        <tbody>
+          {fetchInvites.data?.map((el) => {
+            return (
+              <tr>
+                <td className="flex flex-row gap-2 items-center">
+                  <FaClipboard
+                    className="cursor-pointer text-sky-500 hover:text-sky-600"
+                    onClick={() => {
+                      navigator.clipboard.writeText(`localhost:3000/invite/${el.id}`);
+                      notifications.show({
+                        title: "Pozvánky",
+                        message: "Odkaz byl zkopírován do schránky!",
+                      });
+                    }}
+                  />
+                  {el.id}
+                </td>
+                <td>{el.used}</td>
+                <td>{el.expiresAt ? el.expiresAt.toLocaleDateString() : "Neznámý datum"}</td>
+                <td>
+                  <Button
+                    color="red"
+                    variant="outline"
+                    loading={deleteInvite.isLoading}
+                    onClick={() => {
+                      deleteInvite.mutateAsync(el.id);
+                    }}
+                  >
+                    Smazat
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </Table>
     </div>
   );
