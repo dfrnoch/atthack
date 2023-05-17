@@ -23,8 +23,8 @@ const useStyles = createStyles((theme) => ({
   },
 
   placeholder: {
-    height: "140px",
-    width: "140px",
+    height: "100px",
+    width: "80px",
   },
 }));
 
