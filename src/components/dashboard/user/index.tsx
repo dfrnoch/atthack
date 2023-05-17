@@ -49,7 +49,9 @@ const HomePage = () => {
           {categoryInfo.data?.category?.exercises.map((exercise) => (
             <LecturePoint
               id={exercise.id}
-              completed={categoryInfo.data.completedExercises?.completedExercises.includes(exercise) || false}
+              completed={
+                categoryInfo.data.completedExercises?.completedExercises.map((e) => e.id).includes(exercise.id) || false
+              }
               name="Emaily a zprávy 1"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
               onClick={() => {
