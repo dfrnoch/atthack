@@ -9,12 +9,20 @@ type LecturePointProps = {
   completed: boolean;
   name: string;
   description?: string;
-  onClick?: () => void; 
+  onClick?: () => void;
 };
 
 const LecturePoint: React.FC<LecturePointProps> = ({ id, completed, onClick, name, description }) => {
   return (
-    <Card shadow="md" radius="md" padding="xl" onClick={onClick} mt={20} className="hover:shadow-lg transition-shadow ease-in-out duration-200" >
+    <Card
+      key={id}
+      shadow="md"
+      radius="md"
+      padding="xl"
+      onClick={onClick}
+      mt={20}
+      className={`hover:shadow-lg transition-shadow ease-in-out duration-200${completed ? " bg-green-100" : ""}`}
+    >
       <Text fz="lg" fw={500} mt="md">
         {name}
       </Text>

@@ -35,6 +35,15 @@ export const homeRouter = createTRPCRouter({
       },
     });
 
-    return category;
+    const completedExercises = await ctx.prisma.user.findUnique({
+      where: {
+        id: ctx.session.user.id,
+      },
+      select: {
+        completedExercises: true,
+      },
+    });
+
+    return { category, completedExercises };
   }),
 });
