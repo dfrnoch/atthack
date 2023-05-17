@@ -3,6 +3,7 @@ import { Role } from "@prisma/client";
 
 import dynamic from "next/dynamic";
 import { api } from "~/utils/api";
+import LoadingScreen from "~/components/LoadingScreen";
 
 // Lazy load the components
 const UserDashboard = dynamic(() => import("~/components/dashboard/user"));
@@ -19,7 +20,9 @@ const Dashboard = () => {
     }
   }
 
-  return <Container>Loading</Container>;
+  return (
+      <LoadingScreen/>
+  );
 };
 
 export default Dashboard;
