@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Container, Text, TextInput, Select, MultiSelect, Button } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { api } from "../../../utils/api";
-import { Gender } from "@prisma/client";
+import { api } from "../utils/api";
+import { Company, CompanyWorkerGroup, Gender, Invite } from "@prisma/client";
 import Router from "next/router";
 
-const WelcomePage = () => {
+const UserWelcomeModal = ({
+  invite,
+}: {
+  invite: Invite & {
+    Company: Company & {
+      CompanyWorkers: CompanyWorkerGroup[];
+    };
+  };
+}) => {
   const createUser = api.user.createUserDetails.useMutation();
 
   const [age, setAge] = useState("");
   const [gender, setGender] = useState<Gender>(Gender.MALE);
   const [hobbies, setHobbies] = useState(["Sport", "Hudba", "Programování", "Čtení"]);
   const [education, setEducation] = useState("");
+
+  const [workergroup, setWorkergroup] = useState(invite.Company.CompanyWorkers[0]);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -22,10 +32,7 @@ const WelcomePage = () => {
   }, [createUser.isSuccess]);
 
   return (
-    <Container size={isMobile ? "xs" : "sm"} className="mt-10">
-      <Text align="center" size="xl" weight={500}>
-        Pojddme si vytvorit ucet
-      </Text>
+    <>
       <TextInput
         label="Věk"
         value={age}
@@ -45,6 +52,17 @@ const WelcomePage = () => {
         ]}
         required
       />
+      <Select
+        label="Pracovní skupina"
+        value={workergroup?.id}
+        onChange={(value) => setWorkergroup(invite.Company.CompanyWorkers?.find((worker) => worker.id === value))}
+        data={invite.Company.CompanyWorkers.map((worker) => ({
+          value: worker.id,
+          label: worker.name,
+        }))}
+        required
+      />
+
       <MultiSelect
         label="Koníčky"
         data={hobbies}
@@ -65,6 +83,8 @@ const WelcomePage = () => {
         variant="light"
         onClick={() => {
           createUser.mutateAsync({
+            inviteId: invite.id,
+            workerGroupId: workergroup?.id || "",
             age: parseInt(age),
             gender,
             hobbies,
@@ -75,8 +95,8 @@ const WelcomePage = () => {
       >
         Pokračovat
       </Button>
-    </Container>
+    </>
   );
 };
 
-export default WelcomePage;
+export default UserWelcomeModal;

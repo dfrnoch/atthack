@@ -51,8 +51,7 @@ export default class PhishingMailer {
         const userDetails = props.user.UserDetails!;
         const genderCzech = userDetails.gender === "FEMALE" ? "žena" : "muž";
 
-        console.log(`Prompt: Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${user.name}, je to ${genderCzech}, je mu ${userDetails.age} let, `
-            + `a jeho koníčky jsou ${userDetails.hobbies}. Personalizuj pro něj tento e-mail:\n\n ${props.mail}`);
+        console.log(`Prompt: Budeš personalizovat e-mail pro zaměstnance, který se jmenuje ${user.name}, je to ${genderCzech}, je mu ${userDetails.age} let, a jeho koníčky jsou ${userDetails.hobbies}. Personalizuj pro něj tento e-mail:\n\n ${props.mail}`);
         const completion = await this.openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             user: user.email!,
@@ -65,15 +64,13 @@ export default class PhishingMailer {
                 {
                     role: "user",
                     content:
-                        `Personalizuj e-mail pro zaměstnance, který se jmenuje ${user.name}. Je to ${genderCzech}, je mu ${userDetails.age} let, `
-                        + `a jeho koníčky jsou ${userDetails.hobbies} (nezmiňuj je přímo). E-mail:\n\n${props.mail}`
+                        `Personalizuj e-mail pro zaměstnance, který se jmenuje ${user.name}. Je to ${genderCzech}, je mu ${userDetails.age} let, a jeho koníčky jsou ${userDetails.hobbies}. E-mail:\n\n${props.mail}`
                 },
             ],
         });
 
-        let response = completion.data.choices[0]?.message?.content;
+        const response = completion.data.choices[0]?.message?.content;
         if (!response) throw new Error("No response from OpenAI API.");
-        response = response.replace("{", "").replace("}", "");
         console.log("Response from openai: ", response);
         return response;
     }
