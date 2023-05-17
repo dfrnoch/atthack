@@ -113,10 +113,10 @@ function PasswordRequirement({ meets, label }: { meets: boolean; label: string }
 }
 
 const requirements = [
-  { re: /[0-9]/, label: "Includes number" },
-  { re: /[a-z]/, label: "Includes lowercase letter" },
-  { re: /[A-Z]/, label: "Includes uppercase letter" },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: "Includes special symbol" },
+  { re: /[0-9]/, label: "Zahrnuje čísla" },
+  { re: /[a-z]/, label: "Zahrnuje malá písmena" },
+  { re: /[A-Z]/, label: "Zahrnuje velká písmena" },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: "Zahrnuje speciální znaky" },
 ];
 
 function getStrength(password: string) {
@@ -143,7 +143,7 @@ function PasswordCrack() {
       console.log(meets, requirement.label);
       if (!meets) newChecks.push(<PasswordRequirement meets={meets} label={requirement.label} />);
     });
-    if (newChecks.length === 0) newChecks.push(<PasswordRequirement meets={true} label={"Perfect"} />);
+    if (newChecks.length === 0) newChecks.push(<PasswordRequirement meets={true} label={"Perfektní"} />);
     setChecks(newChecks);
   }, [value]);
 
