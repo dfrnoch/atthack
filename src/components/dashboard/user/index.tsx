@@ -18,6 +18,11 @@ const HomePage = () => {
   const { error, data } = api.home.loadData.useQuery();
 
   const categoryInfo = api.home.categoryInfo.useMutation();
+  const shitMutation = api.exercise.alterCompleted.useMutation({
+    onSuccess: () => {
+      categoryInfo.mutate(activeCategory);
+    },
+  });
 
   useEffect(() => {
     categoryInfo.mutateAsync(activeCategory);
@@ -78,7 +83,7 @@ const HomePage = () => {
       <Modal size={"xl"} opened={opened} onClose={close} centered>
         <Popup cat={popupData.cat} pos={popupData.pos} onCompleted={() => {
             close();
-
+          shitMutation.mutate({category: activeCategory, excercisePosition: popupData.pos});
         }} />
       </Modal>
     </div>

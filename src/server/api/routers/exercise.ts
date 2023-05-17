@@ -10,7 +10,7 @@ export const excersiceRouter = createTRPCRouter({
         excercisePosition: z.number(),
       }),
     )
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const ctg = await ctx.prisma.category.findUnique({
         where: {
           id: input.category,
