@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CategoryItem from "./category";
 import Popup from "./Popup";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, PasswordInput, Popover, Progress, Skeleton, Title } from "@mantine/core";
 import { Leaderboard } from "~/components/Leaderboard";
 import LecturePoint from "./lecture/LecturePoint";
+import { notifications } from "@mantine/notifications";
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState(1);
@@ -27,6 +28,10 @@ const HomePage = () => {
   useEffect(() => {
     categoryInfo.mutateAsync(activeCategory);
   }, [activeCategory]);
+
+  const completedExercises = useMemo(() => {
+    return categoryInfo.data?.completedExercises?.completedExercises.map((e) => e.id) || [];
+  }, [categoryInfo.data?.completedExercises]);
 
   return (
     <div>
@@ -56,19 +61,22 @@ const HomePage = () => {
           <Title className="text-2xl">Kategorie {categoryInfo.data?.category?.name}</Title>
           <div className="text-xl line-clamp-3">{categoryInfo.data?.category?.description}</div>
 
-          {categoryInfo.data?.category?.id == 2 ? (
+          {categoryInfo.data?.category?.id === 2 ? (
             <PasswordCrack />
           ) : (
             categoryInfo.data?.category?.exercises.map((exercise, index) => (
               <LecturePoint
                 id={exercise.id}
-                completed={
-                  categoryInfo.data.completedExercises?.completedExercises.map((e) => e.id).includes(exercise.id) ||
-                  false
-                }
-                name={`Bezpečnost na e-mailu ${index + 1}`}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
+                completed={completedExercises.includes(exercise.id)}
+                name={exercise.name}
+                description={exercise.description}
                 onClick={() => {
+                  if (
+                    completedExercises.includes(exercise.id) ||
+                    completedExercises.length > exercise.categoryPosition + 1
+                  )
+                    return notifications.show({ message: "Předchozí cvičení ještě nejsou dokončená" });
+
                   setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
                   open();
                 }}
@@ -81,10 +89,14 @@ const HomePage = () => {
         </div>
       </div>
       <Modal size={"xl"} opened={opened} onClose={close} centered>
-        <Popup cat={popupData.cat} pos={popupData.pos} onCompleted={() => {
+        <Popup
+          cat={popupData.cat}
+          pos={popupData.pos}
+          onCompleted={() => {
             close();
-          shitMutation.mutate({category: activeCategory, excercisePosition: popupData.pos});
-        }} />
+            shitMutation.mutate({ category: activeCategory, excercisePosition: popupData.pos });
+          }}
+        />
       </Modal>
     </div>
   );
