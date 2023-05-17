@@ -2,19 +2,27 @@ import {useState} from "react";
 import ExerciseComp from "~/components/ExerciseComp";
 import swcLoader from "next/dist/build/webpack/loaders/next-swc-loader";
 
-export default function ({json, exercise}:{json:any, exercise?:any}) {
+type JsonType = {
+    title: string,
+    description: string,
+    exercises: {title: string, description: string}[]
+}
+
+export default function ({json, exercise}: { json: JsonType, exercise?: any }) {
     const [done, setDone] = useState(-1)
     const [index, setIndex] = useState(0)
     const [active, setActive] = useState(false)
 
     const Path = () => {
         const Button = ({children}) => {
-            return <button disabled={done+2<parseInt(children)}
+            return <button disabled={done + 2 < parseInt(children)}
                            className={"disabled:opacity-30 w-20 h-20 rounded-full text-black text-2xl font-extrabold shadow-inner my-5 hover:bg-emerald-400 transition-all duration-300 ease-in-out "
-                               + (done+1>=parseInt(children) ?" bg-emerald-400":" bg-gray-100") + posSwitcher(parseInt(children)-1)} onClick={()=>{
-                setIndex(parseInt(children) - 1)
-                setActive(true)}
-            }>{children}</button>
+                               + (done + 1 >= parseInt(children) ? " bg-emerald-400" : " bg-gray-100") + posSwitcher(parseInt(children) - 1)}
+                           onClick={() => {
+                               setIndex(parseInt(children) - 1)
+                               setActive(true)
+                           }
+                           }>{children}</button>
         }
         const Introduction = () => {
             return (
@@ -30,8 +38,8 @@ export default function ({json, exercise}:{json:any, exercise?:any}) {
 
                 <Introduction/>
 
-                {json && json.exercises ?Array.from({length:json.exercises!.length}).map((_,i) => {
-                    return <Button key={i}>{i+1}</Button>
+                {json && json.exercises ? Array.from({length: json.exercises!.length}).map((_, i) => {
+                    return <Button key={i}>{i + 1}</Button>
                 }) : <div>no data</div>}
 
             </div>
@@ -75,7 +83,8 @@ const posSwitcher = (pos: number) => {
         case 9:
             return " self-start"
 
-            default: return ""
+        default:
+            return ""
 
 
     }
