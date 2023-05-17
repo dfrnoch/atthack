@@ -33,11 +33,11 @@ function Content(props: PropsWithChildren<{}>) {
     useEffect(() => {
         setTimeout(() => {
             setOpacity("opacity-100");
-        }, 1000);
+        }, 600);
     }, []);
 
     return (
-        <div className={`transition duration-500 ${opacity}`}>
+        <div className={`transition duration-1000 ${opacity}`}>
             {props.children}
         </div>
     )

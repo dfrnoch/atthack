@@ -19,6 +19,7 @@ export default class Email {
             to: props.to,
             subject: props.subject,
             text: props.content,
+            html: props.content,
             from: `Cyber Security <${process.env.EMAIL_USERNAME}>`,
         });
     }
