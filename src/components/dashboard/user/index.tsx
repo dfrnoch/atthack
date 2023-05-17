@@ -7,6 +7,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal, PasswordInput, Popover, Progress, Skeleton, Title } from "@mantine/core";
 import { Leaderboard } from "~/components/Leaderboard";
 import LecturePoint from "./lecture/LecturePoint";
+import { notifications } from "@mantine/notifications";
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState(1);
@@ -67,10 +68,14 @@ const HomePage = () => {
               <LecturePoint
                 id={exercise.id}
                 completed={completedExercises.includes(exercise.id)}
-                name={`Bezpečnost na e-mailu ${index + 1}`}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
+                name={exercise.name}
+                description={exercise.description}
                 onClick={() => {
-                  if (completedExercises.includes(exercise.id)) return;
+                  if (
+                    completedExercises.includes(exercise.id) ||
+                    completedExercises.length > exercise.categoryPosition + 1
+                  )
+                    return notifications.show({ message: "Předchozí cvičení ještě nejsou dokončená" });
 
                   setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
                   open();
