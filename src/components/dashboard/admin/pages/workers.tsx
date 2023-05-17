@@ -71,7 +71,7 @@ const WorkersPage = () => {
             />
 
             <Button mt={15} loading={createGroup.isLoading} onClick={() => createGroup.mutateAsync(createGroupData)}>
-              Pridat
+              Přidat
             </Button>
           </Modal>
 
