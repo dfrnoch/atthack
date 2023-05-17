@@ -9,31 +9,35 @@ export const inviteRouter = createTRPCRouter({
       where: {
         id: input,
       },
+      include: {
+        Company: {
+          include: {
+            CompanyWorkers: true,
+          },
+        },
+      },
     });
 
     return inviteData;
   }),
 
-  listInvites: protectedProcedure
-    .query(async ({ ctx }) => {
-      return await ctx.prisma.invite.findMany({
-        where: {
-          Company: {
-            adminId: ctx.session.user.id
-          }
-        }
-      });
-    }),
+  listInvites: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.invite.findMany({
+      where: {
+        Company: {
+          adminId: ctx.session.user.id,
+        },
+      },
+    });
+  }),
 
-  removeInvite: protectedProcedure
-    .input(z.string())
-    .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.invite.delete({
-        where: {
-          id: input
-        }
-      });
-    }),
+  removeInvite: protectedProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
+    return await ctx.prisma.invite.delete({
+      where: {
+        id: input,
+      },
+    });
+  }),
 
   createInvite: protectedProcedure
     .input(
@@ -48,7 +52,7 @@ export const inviteRouter = createTRPCRouter({
           adminId: ctx.session.user.id,
         },
       });
-      
+
       if (!company)
         throw new TRPCError({
           message: "You don't own a company!",

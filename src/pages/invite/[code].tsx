@@ -1,11 +1,15 @@
-import { Button, Center, Container, Skeleton, Space, Title } from "@mantine/core";
+import { Button, Center, Container, Modal, Skeleton, Space, Title } from "@mantine/core";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import UserWelcomeModal from "~/components/UserWelcomeModal";
 
 const InvitePage = () => {
   const session = useSession();
   const router = useRouter();
+
+  const [openRegistration, setOpenRegistration] = useState(false);
 
   const inviteData = api.invite.getInviteInfo.useQuery(router.query.code as string);
   const acceptInvite = api.invite.acceptInvite.useMutation();
@@ -27,6 +31,7 @@ const InvitePage = () => {
                   <Button
                     variant="filled"
                     onClick={() => {
+                      setOpenRegistration(true);
                       acceptInvite.mutateAsync(inviteData.data?.id || "");
                     }}
                   >
@@ -36,6 +41,13 @@ const InvitePage = () => {
               ))) || <div className="text-center">Neplatná pozvánka!</div>}
         </div>
       </Center>
+      <Modal
+        opened={openRegistration}
+        onClose={() => setOpenRegistration(false)}
+        title={`Připojte se k ${inviteData.data?.Company.name}`}
+      >
+        {inviteData.data && <UserWelcomeModal invite={inviteData.data} />}
+      </Modal>
     </Container>
   );
 };
