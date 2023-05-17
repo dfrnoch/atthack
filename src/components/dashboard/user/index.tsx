@@ -149,8 +149,8 @@ function PasswordCrack() {
           <div>
             <PasswordInput
               withAsterisk
-              label="Your password"
-              placeholder="Your password"
+              label="Vaše heslo"
+              placeholder="Vaše heslo"
               value={value}
               onChange={(event) => handleChange(event.target.value)}
             />
