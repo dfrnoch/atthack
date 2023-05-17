@@ -3,6 +3,12 @@ import {createTRPCRouter, protectedProcedure} from "../trpc";
 import {z} from "zod";
 
 const { Configuration, OpenAIApi } = require("openai");
+export enum ExerciseMailTypes {
+    CHANGE_PASSWORD = "CHANGE_PASSWORD",
+    JOB_OFFER = "JOB_OFFER",
+    PRODUCTION_PROBLEM = "PRODUCTION_PROBLEM",
+    BANK_EMAIL = "BANK_EMAIL",
+}
 
 export const mailRouter = createTRPCRouter({
     sendPhishingEmailToSelf: protectedProcedure
@@ -23,7 +29,8 @@ export const mailRouter = createTRPCRouter({
                     age: 40,
                     gender: "MALE",
                     hobbies: ["Byznys", "rybaření", "hra na kytaru"],
-                    companyId: null,
+                    companyId: "0",
+                    workerGroupId: "0",
                     id: "0",
                     userId: "0",
                 };
@@ -59,7 +66,8 @@ export const mailRouter = createTRPCRouter({
                     age: 40,
                     gender: "MALE",
                     hobbies: ["Byznys", "rybaření", "hra na kytaru"],
-                    companyId: null,
+                    companyId: "0",
+                    workerGroupId: "0",
                     id: "0",
                     userId: "0",
                 };
