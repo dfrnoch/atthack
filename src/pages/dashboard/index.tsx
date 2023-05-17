@@ -20,9 +20,7 @@ const Dashboard = () => {
     }
   }
 
-  return (
-      <LoadingScreen/>
-  );
+  return <LoadingScreen />;
 };
 
 export default Dashboard;
