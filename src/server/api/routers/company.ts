@@ -23,6 +23,28 @@ export const companyRouter = createTRPCRouter({
     });
   }),
 
+  fetchGroupWorkers: protectedProcedure 
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+    const workerGroup = await ctx.prisma.companyWorkerGroup.findFirst({
+      where: {
+        id: input,
+        company: {
+          adminId: ctx.session.user.id,
+        },
+      },
+      include: {
+        workers: {
+          include: {
+            User: true
+          }
+        },
+      },
+    });
+
+    return workerGroup;
+  }),
+
   getLeaderboard: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.prisma.userDetails.findFirst({
       where: {
