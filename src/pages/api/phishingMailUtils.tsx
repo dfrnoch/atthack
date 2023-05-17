@@ -1,8 +1,8 @@
 import { prisma } from "~/server/db";
-import {User, UserDetails} from ".prisma/client";
 import Email from "~/pages/api/Email";
 import phishingEmails from "~/pages/api/phishingEmails";
 import {OpenAIApi} from "openai";
+import { User, UserDetails } from "@prisma/client";
 
 export type UserWithDetails = User & {UserDetails: UserDetails | null};
 

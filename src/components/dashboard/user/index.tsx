@@ -10,8 +10,6 @@ import LecturePoint from "./lecture/LecturePoint";
 import { notifications } from "@mantine/notifications";
 
 const HomePage = () => {
-  const router = useRouter();
-
   const [activeCategory, setActiveCategory] = useState(0);
 
   const [opened, { open, close }] = useDisclosure(false);
