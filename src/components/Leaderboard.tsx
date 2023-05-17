@@ -55,7 +55,7 @@ export const Leaderboard = () => {
         Žebříček kolegů
       </Title>
       {[session.data?.user as User, session.data?.user as User, session.data?.user as User].map((el, index, arr) => {
-        return <LeaderboardPlaceItem user={el} place={index + 1} key={el.id} />;
+        return <LeaderboardPlaceItem user={el} place={index + 1} key={el?.id || index} />;
       })}
     </div>
   );
