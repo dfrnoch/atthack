@@ -12,7 +12,7 @@ const Dashboard = () => {
   const userRole = api.user.getRole.useQuery();
 
   if (userRole.data) {
-    if (userRole.data.role === Role.ADMIN) {
+    if (userRole.data.role === Role.USER) {
       return <UserDashboard />;
     } else if (userRole.data.role === Role.ADMIN) {
       return <AdminDashboard />;

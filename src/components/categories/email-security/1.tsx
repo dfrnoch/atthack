@@ -2,12 +2,13 @@ import Exercise from "~/components/Exercise";
 import {useState} from "react";
 import {api} from "~/utils/api";
 import {Button, Divider, MultiSelect, Title} from "@mantine/core";
-import {RxAvatar} from "react-icons/Rx";
+import {RxAvatar} from "react-icons/rx";
 
 export const id = "email-security-1";
 export default function EmailExercise1() {
     function onCorrect() {
         // TODO: Close the modal.
+        
     }
 
     const {data} = {
@@ -50,7 +51,7 @@ Tým technické podpory
                             ? <BogusInbox name={"Lucie Jablůnková"}
                                           message={"Dobrý den pane Pešle, Tuto zprávu vám posíláme, protože..."}
                                           onClick={() => setShowContent(true)}/>
-                            : (!!data?.subject ? <ShownComponent onCorrect={onCorrect} data={data}/> : null)
+                            : (data?.subject ? <ShownComponent onCorrect={onCorrect} data={data}/> : null)
                     }
                 </div>
             </Exercise.Content>
@@ -58,7 +59,8 @@ Tým technické podpory
     )
 }
 
-function ShownComponent(props: { data: any, onCorrect?: () => void }) {
+// rome-ignore lint/suspicious/noExplicitAny: <explanation>
+function  ShownComponent(props: { data: any, onCorrect?: () => void }) {
     return (
         <>
             <InboxContent message={props.data?.content}
@@ -140,8 +142,8 @@ function BogusInbox(props: {name: string, message: string, onClick: () => void})
                 ].map((item, index) => {
                     return (
                         <div>
-                            <EmailInboxRow key={index} {...item}/>
-                            <div className={"h-[1px] bg-neutral-800"}></div>
+                            <EmailInboxRow key={item.name} {...item}/>
+                            <div className={"h-[1px] bg-neutral-800"}/>
                         </div>
                     )
                 })
@@ -150,11 +152,12 @@ function BogusInbox(props: {name: string, message: string, onClick: () => void})
     )
 }
 
-const Line = (props: {className?: string}) => <div className={"h-[1px] w-full bg-neutral-700 " + props.className}></div>
+const Line = (props: {className?: string}) => <div className={`h-[1px] w-full bg-neutral-700 ${props.className}`}/>
 
 function EmailInboxRow(props: {name: string, message: string, date: Date, selected?: boolean, onClick?: () => void}) {
     return (
-        <div onClick={props.onClick} className={`${props.selected && "hover:bg-white/5 cursor-pointer"} rounded-lg px-4 py-3 select-none flex flex-row w-full justify-between ${props.selected ? "text-gray-100" : "text-gray-500"}`}>
+        // rome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+<div onClick={props.onClick} className={`${props.selected && "hover:bg-white/5 cursor-pointer"} rounded-lg px-4 py-3 select-none flex flex-row w-full justify-between ${props.selected ? "text-gray-100" : "text-gray-500"}`}>
             <p className={"w-32"}>{props.name}</p>
             <p className={"truncate text-gray-500"}>{props.message}</p>
             <p className={"w-32 text-right"}>{props.date.toLocaleDateString("cs-CZ")}</p>

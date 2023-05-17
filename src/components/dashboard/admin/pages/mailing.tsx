@@ -1,4 +1,4 @@
-import { Button, Checkbox, Paper, Select, Text } from "@mantine/core";
+import { Button, Checkbox, Divider, Paper, Select, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useState } from "react";
 import { api } from "~/utils/api";
@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 const MailingPage = () => {
   const internetData = api.company.getEmailFrequency.useQuery();
   const [data, setData] = useState(internetData.data?.phishingEmailFrequencyDays);
+  const insane = api.mail.sendPhishingEmailToSelf.useMutation();
   const mutateData = api.company.setEmailFrequency.useMutation({
     onSuccess: () => {
       showNotification({
@@ -53,6 +54,13 @@ const MailingPage = () => {
       >
         Upravit
       </Button>
+
+      <Divider mt={10} mb={10}/>
+
+      <Text>Odeslani testovaciho phishing mailu</Text>
+      <Button onClick={() => {
+        insane.mutateAsync();
+      }} loading={insane.isLoading}>Odeslat</Button>
     </Paper>
   );
 };

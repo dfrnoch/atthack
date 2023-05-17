@@ -69,7 +69,6 @@ const WorkersPage = () => {
                     workerCount={el.workers}
                     createdAt={el.createdAt}
                     color={el.color}
-                    category="Nic"
                     title={el.name}
                     onClick={() => setSelectedGroup(el)}
                   />

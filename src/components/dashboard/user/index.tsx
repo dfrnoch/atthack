@@ -27,7 +27,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-8 gap-4 h-screen">
+      <div className="grid grid-cols-8 gap-8 h-screen m-5">
         <div className="flex flex-col gap-4 col-span-2 overflow-y-scroll no-scrollbar">
           {data?.categories.map((category, index) => (
             <CategoryItem
@@ -43,15 +43,17 @@ const HomePage = () => {
         </div>
 
         <div className="col-span-4 justify-end ">
-          <Title className="text-2xl">Kategorie {categoryInfo.data?.name}</Title>
-          <div className="text-xl line-clamp-3">{categoryInfo.data?.description}</div>
+          <Title className="text-2xl">Kategorie {categoryInfo.data?.category?.name}</Title>
+          <div className="text-xl line-clamp-3">{categoryInfo.data?.category?.description}</div>
 
-          {categoryInfo.data?.exercises.map((exercise) => (
+          {categoryInfo.data?.category?.exercises.map((exercise) => (
             <LecturePoint
               id={exercise.id}
-              completed={false}
+              completed={
+                categoryInfo.data.completedExercises?.completedExercises.map((e) => e.id).includes(exercise.id) || false
+              }
               name="Emaily a zprávy 1"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl ultricies nisl, nec aliquam nisl nisl nec nisl."
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
               onClick={() => {
                 setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
                 open();
