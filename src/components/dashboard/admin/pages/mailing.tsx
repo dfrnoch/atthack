@@ -1,4 +1,4 @@
-import { Button, Checkbox, Paper, Select, Text } from "@mantine/core";
+import { Button, Checkbox, Divider, Paper, Select, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useState } from "react";
 import { api } from "~/utils/api";
@@ -53,6 +53,11 @@ const MailingPage = () => {
       >
         Upravit
       </Button>
+
+      <Divider mt={10} mb={10}/>
+
+      <Text>Odeslani testovaciho phishing mailu</Text>
+      <Button>Odeslat</Button>
     </Paper>
   );
 };
