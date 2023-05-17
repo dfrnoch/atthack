@@ -23,9 +23,8 @@ const CategoryItem = ({ image, name, description, onClick }: Category & { onClic
   const { classes } = useStyles();
 
   return (
-    <Card mb={8} mt={10} withBorder radius="md" p={0} className={classes.card} onClick={onClick}>
-      <Group noWrap spacing={0} p={0}>
-        <Image src={image} height={120} width={140} />
+    <Card mb={15} withBorder radius="md" p={0} className={classes.card} onClick={onClick}>
+      <Group noWrap spacing={0} p={15}>
         <div className="pl-4">
           <Text className={classes.title} size={"lg"} mb="xs">
             {name}
