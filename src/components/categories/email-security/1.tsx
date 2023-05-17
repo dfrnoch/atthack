@@ -8,6 +8,7 @@ export const id = "email-security-1";
 export default function EmailExercise1() {
     function onCorrect() {
         // TODO: Close the modal.
+        
     }
 
     const {data} = {
