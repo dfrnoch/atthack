@@ -1,4 +1,17 @@
-import { Button, Text, ColorPicker, Flex, Modal, TextInput, Title, MultiSelect, Box, Paper } from "@mantine/core";
+import {
+  Button,
+  Text,
+  ColorPicker,
+  Flex,
+  Modal,
+  TextInput,
+  Title,
+  MultiSelect,
+  Box,
+  Paper,
+  Table,
+  Badge,
+} from "@mantine/core";
 import WorkerGroupCard from "../../../adminDashboard/WorkerGroupCard";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
@@ -8,19 +21,19 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const WorkersPage = () => {
   const [modalOpened, { open, close }] = useDisclosure();
-  const fetchUsersToAdd = api.company.fetchUsers.useQuery();
-  const workers = api.company.fetchWorkerGroups.useQuery();
+  const groups = api.company.fetchWorkerGroups.useQuery();
   const [selectedGroup, setSelectedGroup] = useState<CompanyWorkerGroup | null>(null);
+  const workers = api.company.fetchGroupWorkers.useQuery(selectedGroup?.id || "");
   const createGroup = api.company.addWorkerGroup.useMutation({
     onSuccess: async () => {
       close();
-      await workers.refetch();
+      await groups.refetch();
     },
   });
   const deleteWorkerGroup = api.company.removeWorkerGroup.useMutation({
     onSuccess: async () => {
       setSelectedGroup(null);
-      await workers.refetch();
+      await groups.refetch();
     },
   });
   const [createGroupData, setCreateGroupData] = useState({
@@ -39,6 +52,7 @@ const WorkersPage = () => {
               Přidat
             </Button>
           </Flex>
+
           <Modal opened={modalOpened} onClose={close} title="Pridat skupinu">
             <TextInput
               value={createGroupData.name}
@@ -63,7 +77,7 @@ const WorkersPage = () => {
 
           <Paper p={15} variant="outlined" withBorder mt={20}>
             <Flex direction="row" wrap="wrap" gap={18}>
-              {workers.data?.map((el) => {
+              {groups.data?.map((el) => {
                 return (
                   <WorkerGroupCard
                     workerCount={el.workers}
@@ -92,6 +106,28 @@ const WorkersPage = () => {
               Smazat
             </Button>
           </Flex>
+
+          <Table mt={20}>
+            <thead>
+              <tr>
+                <td>ID</td>
+                <td>Jmeno</td>
+                <td>Role</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              {workers.data?.workers.map((el) => {
+                  return (
+                    <tr>
+                      <td>{el.id}</td>
+                      <td>{el.User.name}</td>
+                      <td><Badge>{el.User.role}</Badge></td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </Table>
         </>
       )}
     </div>

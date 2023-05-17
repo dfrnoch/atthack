@@ -75,6 +75,15 @@ export const inviteRouter = createTRPCRouter({
       },
     });
 
+    await ctx.prisma.invite.update({
+      where: {
+        id: inviteData?.id
+      },
+      data: {
+        used: (inviteData?.used || 0) + 1
+      }
+    });
+
     if (!inviteData) {
       throw new Error("Invite not found");
     }

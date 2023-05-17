@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
 
 export const companyRouter = createTRPCRouter({
   fetchWorkerGroups: protectedProcedure.query(async ({ ctx }) => {
@@ -22,8 +23,56 @@ export const companyRouter = createTRPCRouter({
     });
   }),
 
+  fetchGroupWorkers: protectedProcedure 
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+    const workerGroup = await ctx.prisma.companyWorkerGroup.findFirst({
+      where: {
+        id: input,
+        company: {
+          adminId: ctx.session.user.id,
+        },
+      },
+      include: {
+        workers: {
+          include: {
+            User: true
+          }
+        },
+      },
+    });
+
+    return workerGroup;
+  }),
+
   getLeaderboard: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.$connect();
+    const user = await ctx.prisma.userDetails.findFirst({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+    if (!user)
+      throw new TRPCError({
+        message: "Can't find this user",
+        code: "BAD_REQUEST",
+      });
+
+    const users = await ctx.prisma.user.findMany({
+      where: {
+        Company: {
+          id: user.companyId
+        }
+      },
+      include: {
+        completedExercises: true
+      }
+    });
+
+    users.sort((a, b) => {
+      return b.completedExercises.length - a.completedExercises.length;
+    });
+
+    return users.slice(0, 5);
   }),
 
   fetchUsers: protectedProcedure.query(async ({ ctx }) => {

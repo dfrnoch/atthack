@@ -3,9 +3,6 @@ import dynamic from "next/dynamic";
 const exerciseList = [
   [
     dynamic(() => import("~/components/categories/email-security/1")),
-    // dynamic(() => import("~/components/categories/email-security/2")),
-    // dynamic(() => import("~/components/categories/email-security/3")),
-    // dynamic(() => import("~/components/categories/email-security/4")),
   ],
 ];
 

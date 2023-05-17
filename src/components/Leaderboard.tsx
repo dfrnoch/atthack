@@ -1,6 +1,6 @@
 import { Avatar, Group, Paper, createStyles, Text, Title } from "@mantine/core";
-import { User } from "@prisma/client";
-import { useSession } from "next-auth/react";
+import { Exercise, User } from "@prisma/client";
+import { api } from "~/utils/api";
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const LeaderboardPlaceItem = ({ user, place }: { user: User; place: number }) => {
+const LeaderboardPlaceItem = ({ user, place }: { user: User & { completedExercises: Exercise[] }; place: number }) => {
   const { classes } = useStyles();
 
   return (
@@ -40,21 +40,22 @@ const LeaderboardPlaceItem = ({ user, place }: { user: User; place: number }) =>
           </Text>
         </div>
 
-        <Text>30 xp</Text>
+        <Text>{(user.completedExercises.length * 10).toString()} XP</Text>
       </Group>
     </Paper>
   );
 };
 
 export const Leaderboard = () => {
-  const session = useSession();
+  const data = api.company.getLeaderboard.useQuery();
 
   return (
     <div>
       <Title size={20} mt={15}>
         Žebříček kolegů
       </Title>
-      {[session.data?.user as User, session.data?.user as User, session.data?.user as User].map((el, index, arr) => {
+
+      {data.data?.map((el, index) => {
         return <LeaderboardPlaceItem user={el} place={index + 1} key={el.id} />;
       })}
     </div>
