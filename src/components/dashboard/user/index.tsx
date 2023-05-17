@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
 import { useEffect, useState } from "react";
 import CategoryItem, { Category } from "./category";
+import { Leaderboard } from "~/components/Leaderboard";
 
 const categories: Category[] = [
   {
@@ -48,7 +49,7 @@ const HomePage = () => {
         </div>
 
         <div className="col-span-4 bg-green-200">{JSON.stringify(data)}</div>
-        <div className="col-span-2 bg-blue-200">Column 3</div>
+        <div className="col-span-2"><Leaderboard/></div>
       </div>
     </div>
   );
