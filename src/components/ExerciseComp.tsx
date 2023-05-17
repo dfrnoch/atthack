@@ -4,7 +4,7 @@ import ExerciseModal from "./ExerciseModal";
 import Choose from "./exercisisTypes/Choose";
 
 const ExerciseComp = ({index = 0, onDone, exercise}: {exercise:any, index?: number, onDone:(b:boolean)=>void}) => {
-    const currentSlide = json.exercises[index]
+    const currentSlide = json.exercises[index];
     const ex = exercise({index, onDone})
 
     return (

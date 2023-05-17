@@ -66,13 +66,14 @@ export default class PhishingMailer {
                     role: "user",
                     content:
                         `Personalizuj e-mail pro zaměstnance, který se jmenuje ${user.name}. Je to ${genderCzech}, je mu ${userDetails.age} let, `
-                        + `a jeho koníčky jsou ${userDetails.hobbies}. E-mail:\n\n${props.mail}`
+                        + `a jeho koníčky jsou ${userDetails.hobbies} (nezmiňuj je přímo). E-mail:\n\n${props.mail}`
                 },
             ],
         });
 
-        const response = completion.data.choices[0]?.message?.content;
+        let response = completion.data.choices[0]?.message?.content;
         if (!response) throw new Error("No response from OpenAI API.");
+        response = response.replace("{", "").replace("}", "");
         console.log("Response from openai: ", response);
         return response;
     }
