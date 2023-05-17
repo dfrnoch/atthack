@@ -67,13 +67,13 @@ const HomePage = () => {
           <Title className="text-2xl">Kategorie {categoryInfo.data?.category?.name}</Title>
           <div className="text-xl line-clamp-3">{categoryInfo.data?.category?.description}</div>
 
-          {categoryInfo.data?.category?.exercises.map((exercise) => (
+          {categoryInfo.data?.category?.exercises.map((exercise, index) => (
             <LecturePoint
               id={exercise.id}
               completed={
                 categoryInfo.data.completedExercises?.completedExercises.map((e) => e.id).includes(exercise.id) || false
               }
-              name="Emaily a zprávy 1"
+              name={"Bezpečnost na e-mailu " + (index + 1)}
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies,"
               onClick={() => {
                 //check if the exercise is not completed
@@ -84,7 +84,7 @@ const HomePage = () => {
                   notifications.show({
                     title: "Nelze otevřít",
                     message: "Nejprve musíte dokončit předchozí cvičení",
-                    color: "red",
+                    color: "blue",
                   });
                 }
               }}
