@@ -5,16 +5,18 @@ import {Button, Divider, MultiSelect, Title} from "@mantine/core";
 import {RxAvatar} from "react-icons/rx";
 
 export const id = "email-security-1";
-export default function EmailExercise1(onCompleted?: () => void) {
+export default function EmailExercise1(props: {onCompleted?: () => void}) {
     function onCorrect() {
-        if (typeof onCompleted === "function") onCompleted();
+        if (typeof props.onCompleted === "function") props.onCompleted();
+
+
     }
 
     const {data} = {
         data: {
             subject: "Podezřelá aktivita v účtu | FIO",
             content: `
-Dobrý den pane Pešle,
+Dobrý den pane Liško,
 Tuto zprávu vám posíláme, protože jsme zaznamenali aktivitu ve vašem účtu, která by mohla indikovat, že vaše heslo bylo ohroženo. Chceme vás tedy požádat o okamžitou změnu hesla, aby se váš účet stal bezpečnějším.
 
 Pro změnu hesla klikněte na následující odkaz: odkaz. Odkaz vás přesměruje na stránku, kde můžete zadat své stávající heslo a následně vytvořit nové.
