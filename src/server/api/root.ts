@@ -1,5 +1,5 @@
 import { createTRPCRouter } from "./trpc";
-import { excersiceRouter } from "./routers/excercise";
+import { excersiceRouter } from "./routers/exercise";
 import { userRouter } from "./routers/user";
 import { homeRouter } from "./routers/home";
 import { adminRouter } from "./routers/admin";

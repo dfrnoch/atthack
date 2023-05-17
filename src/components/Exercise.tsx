@@ -37,8 +37,8 @@ function Content(props: PropsWithChildren<{}>) {
     }, []);
 
     return (
-        <div className={""}>
-
+        <div className={`transition duration-500 ${opacity}`}>
+            {props.children}
         </div>
     )
 }
@@ -72,6 +72,7 @@ Exercise.CategoryTitle = ExerciseTitle;
 Exercise.Highlighted = Highlighted;
 Exercise.Description = ExerciseDescription;
 Exercise.Header = Header;
+Exercise.Content = Content;
 export default Exercise;
 
 /*
