@@ -54,7 +54,7 @@ const HomePage = () => {
           {categoryInfo.data?.category?.id == 2 ? (
             <PasswordCrack />
           ) : (
-            categoryInfo.data?.category?.exercises.map((exercise) => (
+            categoryInfo.data?.category?.exercises.map((exercise, index) => (
               <LecturePoint
                 id={exercise.id}
                 completed={
