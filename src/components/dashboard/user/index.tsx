@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CategoryItem from "./category";
 import Popup from "./Popup";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Title } from "@mantine/core";
+import {Modal, PasswordInput, Popover, Progress, Title} from "@mantine/core";
 import { Leaderboard } from "~/components/Leaderboard";
 import LecturePoint from "./lecture/LecturePoint";
 
@@ -105,10 +105,19 @@ function getStrength(password: string) {
 
 function PasswordCrack() {
   const [value, setValue] = useState('');
-  const checks = requirements.map((requirement, index) => (
-      <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(value)}/>
-  ));
+  const [checks, setChecks] = useState<JSX.Element[]>([]);
   const [color, setColor] = useState<'teal' | 'red' | 'yellow'>('red');
+
+    useEffect(() => {
+    const newChecks: JSX.Element[] = [];
+    requirements.forEach((requirement) => {
+        const meets = requirement.re.test(value);
+      console.log(meets, requirement.label);
+      if (!meets) newChecks.push(<PasswordRequirement meets={meets} label={requirement.label}/>);
+    });
+    if(newChecks.length == 0) newChecks.push(<PasswordRequirement meets={true} label={"Perfect"}/> );
+    setChecks(newChecks);
+    }, [value]);
 
   const strength = getStrength(value);
 
@@ -118,7 +127,7 @@ function PasswordCrack() {
     setColor(strength < 70 ? 'red' : strength < 90 ? 'yellow' : 'teal')
   }
   return (
-      <div className={"mx-auto w-[340px]"}>
+      <div className={"mx-auto w-[340px] items-center my-5"}>
         <Popover position="bottom" width="target" transitionProps={{transition: 'pop'}}>
           <Popover.Target>
             <div
@@ -134,7 +143,7 @@ function PasswordCrack() {
           </Popover.Target>
           <Popover.Dropdown>
             <Progress color={color as any} value={strength} size={5} mb="xs"/>
-            <PasswordRequirement label="Includes at least 6 characters" meets={value.length > 5}/>
+            <PasswordRequirement meets={value.length > 5}/>
             {checks}
           </Popover.Dropdown>
         </Popover>
