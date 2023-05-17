@@ -6,6 +6,7 @@ import Popup from "./Popup";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Title } from "@mantine/core";
 import { Leaderboard } from "~/components/Leaderboard";
+import LecturePoint from "./lecture/LecturePoint";
 
 const HomePage = () => {
   const router = useRouter();
@@ -41,24 +42,21 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className="col-span-4 ">
+        <div className="col-span-4 justify-end ">
           <Title className="text-2xl">Kategorie {categoryInfo.data?.name}</Title>
           <div className="text-xl line-clamp-3">{categoryInfo.data?.description}</div>
 
           {categoryInfo.data?.exercises.map((exercise) => (
-            // rome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-            <div
-              key={exercise.id}
-              className="flex flex-col gap-4"
+            <LecturePoint
+              id={exercise.id}
+              completed={false}
+              name="Emaily a zprávy 1"
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl ultricies nisl, nec aliquam nisl nisl nec nisl."
               onClick={() => {
-                open();
                 setPopupData({ cat: activeCategory, pos: exercise.categoryPosition });
+                open();
               }}
-            >
-              <div className="flex flex-row justify-between">
-                <div className="text-2xl">{exercise.categoryPosition}</div>
-              </div>
-            </div>
+            />
           ))}
         </div>
         <div className="col-span-2">

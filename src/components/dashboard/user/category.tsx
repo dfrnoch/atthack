@@ -22,26 +22,11 @@ const useStyles = createStyles((theme) => ({
 const CategoryItem = ({ image, name, description, onClick }: Category & { onClick: () => void }) => {
   const { classes } = useStyles();
 
-  // const statusBadge = () => {
-  //   switch (status) {
-  //     case "COMPLETED":
-  //       return <Badge color="green">Dokončené</Badge>;
-
-  //     case "IN_PROGRESS":
-  //       return <Badge color="yellow">V procesu</Badge>;
-
-  //     case "UNCOMPLETED":
-  //       return <Badge color="red">Uzamčené</Badge>;
-  //   }
-  // };
-
   return (
     <Card mb={8} mt={10} withBorder radius="md" p={0} className={classes.card} onClick={onClick}>
       <Group noWrap spacing={0} p={0}>
         <Image src={image} height={120} width={140} />
         <div className="pl-4">
-          {/* {statusBadge()} */}
-
           <Text className={classes.title} size={"lg"} mb="xs">
             {name}
           </Text>

@@ -30,7 +30,9 @@ model Category {
 }
 
 model Exercise {
-    id String @id @default(uuid())
+    id          String  @id @default(uuid())
+    name        String
+    description String?
 
     categoryPosition Int @unique
 
