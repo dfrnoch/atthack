@@ -49,7 +49,7 @@
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.10",
     "autoprefixer": "^10.4.7",
-    "postcss": "^8.4.14",
+    "postcss": "^8.4.31",
     "prisma": "^4.14.0",
     "rome": "12.1.0",
     "tailwindcss": "^3.2.6",
