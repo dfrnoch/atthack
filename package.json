@@ -32,7 +32,7 @@
     "@trpc/react-query": "^10.16.0",
     "@trpc/server": "^10.9.0",
     "@types/nodemailer": "^6.4.7",
-    "next": "13.4.1",
+    "next": "13.5.0",
     "next-auth": "^4.22.1",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.2",
